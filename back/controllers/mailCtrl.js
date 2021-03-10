@@ -6,14 +6,10 @@ exports.sendEmail = function (req, res) {
 const transporter = nodemailer.createTransport({
   service: "Gmail",
   auth: {
-    user: "example@gmail.com",
-    pass: "password",
+    user: "equipo.ebooks@gmail.com",
+    pass: "Ebooks123",
   },
 });
 
-var mailOptions = {
-  from: "Remitente",
-  to: "destinatario@gmail.com",
-  subject: "Asunto",
-  text: "Contenido del email",
-};
+
+module.exports = transporter;
