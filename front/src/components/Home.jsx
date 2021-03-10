@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setBooks } from "../state/books";
+import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import CameraIcon from "@material-ui/icons/PhotoCamera";
@@ -12,16 +15,16 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Link from "@material-ui/core/Link";
 import Navbar from "./Navbar";
 import { createMuiTheme } from "@material-ui/core/styles";
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://plataforma5.la/">
-        Your Website
-      </Link>{" "}
+      {/* <Link color="inherit" href="https://plataforma5.la/"> */}
+      Your Website
+      {/* </Link>{" "} */}
       {new Date().getFullYear()}
       {"."}
     </Typography>
@@ -59,11 +62,16 @@ const useStyles = makeStyles((tema) => ({
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-
 export default function Home() {
   const classes = useStyles();
 
+  const dispatch = useDispatch();
+  const books = useSelector((state) => state.books);
+
+  useEffect(() => {
+    dispatch(setBooks());
+  }, []);
+  console.log(books);
   return (
     <React.Fragment>
       <Navbar />
@@ -72,12 +80,6 @@ export default function Home() {
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
-          <CardMedia
-            className={classes.cardMedia}
-            image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCrjd16koqLwTidVypEAMnsF9YVksJlSJUEg&usqp=CAU"
-            title="Image title"
-            height="30px"
-          />
           <Container maxWidth="sm">
             <Typography
               component="h1"
@@ -86,7 +88,7 @@ export default function Home() {
               color="textPrimary"
               gutterBottom
             >
-              Favorito del mes
+              BIENVENIDOS A E-BOOKS
             </Typography>
             <Typography
               variant="h5"
@@ -94,19 +96,19 @@ export default function Home() {
               color="textSecondary"
               paragraph
             >
-              Este es nuestro libro mas valorado, Por eso te lo recomendamos.
+              NUESTRA MEJOR SELECCION DE LIBROS PARA VOS
             </Typography>
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
                 <Grid item>
-                  <Link href="/shop">
+                  <Link to="/shop">
                     <Button variant="contained" color="primary">
                       Comprar
                     </Button>
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="/singlecard">
+                  <Link to="/singlecard">
                     <Button variant="outlined" color="primary">
                       Mas Info
                     </Button>
@@ -119,27 +121,27 @@ export default function Home() {
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map((card) => (
+            {books.map((card) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCrjd16koqLwTidVypEAMnsF9YVksJlSJUEg&usqp=CAU"
+                    image={card.imagen}
                     title="Image title"
                   />
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      TITULO
+                      {card.titulo}
                     </Typography>
-                    <Typography>INFORMACION DEL LIBRO</Typography>
+                    <Typography>PRECIO:{card.precio}</Typography>
                   </CardContent>
                   <CardActions>
-                    <Link href="/singlecard">
+                    <Link to="/singlecard">
                       <Button size="small" color="primary">
                         DETALLE
                       </Button>
                     </Link>
-                    <Link href="/shop">
+                    <Link to="/shop">
                       <Button size="small" color="primary">
                         COMPRAR
                       </Button>

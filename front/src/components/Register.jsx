@@ -3,7 +3,6 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -45,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Register() {
+export default function Register({ handleChange, handleSubmit }) {
   const classes = useStyles();
 
   return (
@@ -56,14 +55,15 @@ export default function Register() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Registrate para ingresar
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
+                onChange={handleChange}
                 autoComplete="fname"
-                name="name"
+                name="nombre"
                 variant="outlined"
                 required
                 fullWidth
@@ -74,17 +74,19 @@ export default function Register() {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
+                onChange={handleChange}
                 variant="outlined"
                 required
                 fullWidth
                 id="lastName"
                 label="Apellido"
-                name="lastName"
-                autoComplete="lname"
+                name="apellido"
+                autoComplete=""
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
+                onChange={handleChange}
                 variant="outlined"
                 required
                 fullWidth
@@ -96,6 +98,7 @@ export default function Register() {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                onChange={handleChange}
                 variant="outlined"
                 required
                 fullWidth
@@ -114,7 +117,7 @@ export default function Register() {
             color="primary"
             className={classes.submit}
           >
-            Registrate
+            Enviar Info
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
