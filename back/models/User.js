@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+var bcrypt = require('bcryptjs');
 
 const schema  = new mongoose.Schema({
   nombre: {
@@ -33,5 +34,10 @@ const schema  = new mongoose.Schema({
 });
 
 const User = mongoose.model("User", schema);
+
+User.prototype.encryptPassword = async (password) => {
+  const salt = await bcrypt.genSalt(10)
+  return bcrypt.hash(password, salt)
+}
 
 module.exports = User;

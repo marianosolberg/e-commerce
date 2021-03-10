@@ -6,11 +6,16 @@ const routes = require("./routes");
 const app = express();
 var cors = require("cors");
 
+<<<<<<< HEAD
+=======
 app.use(cors());
 app.use(express.json());
 
+>>>>>>> ea1a1565f8bc4b60ae24d0ac4e22b82e7ce2a9ce
 // Logger para mostrar todos los request que llegan al servidor
 app.use(morgan("dev"));
+
+app.use(express.json());
 
 // Middleware de rutas
 app.use("/api", routes);

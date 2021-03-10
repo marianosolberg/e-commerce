@@ -1,17 +1,35 @@
 const Product = require('../models/Product')
 
 const ProductController = {
+    findOne(req, res) {
+        Product.findById({_id: req.params.id}).populate("categoria")
+        .then(product => res.send(product))
+        .catch((e) => res.send(e))
+    },
     findAll(req, res){
-        Product.find()
+        Product.find().populate("categoria")
         .then(products => res.send(products))
+        .catch((e) => res.send(e))
     },
     create(req, res){
-        console.log(req.body)
         Product.create(req.body)
         .then(product => {
             console.log("PRODUCTO CREADO")
             return res.send(product)
         })
+        .catch((e) => {
+            console.log("producto no creado")
+            res.send(e)
+        })
+    },
+    update(req, res) {
+        Product.findByIdAndUpdate( {_id: req.params.id}, req.body).populate("categoria")
+        .then(product => res.send(product))
+        .catch((e) => res.send(e))
+    },
+    delete(req, res) {
+        console.log("delet")
+        res.sendStatus(200)
     }
 }
 

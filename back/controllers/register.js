@@ -1,18 +1,22 @@
 const User = require("../models/User");
-const transporter = require("./mailCtrl")
-// email sender function
+const transporter = require("./mailCtrl");
 
 const registerController = {
-  create(req, res) {
-    const { nombre, password, email } = req.body;
+   create(req, res) {
     User.create(req.body)
-      .then((user) => res.send(user))
+      .then((user) => {
+        user.password = user.encryptPassword(user.password)
+        user.save()
+        return user
+        // res.send(user);
+      })
+      .then(user => res.send(user))
       .then(() => {
         // Enviamos el email
         transporter.sendMail(
           {
             from: "equipo.ebooks@gmail.com",
-            to: email,
+            to: req.body.email,
             subject: "Mensaje de eBooks",
             text: "¡eBooks te da la bienvenida!",
           },
