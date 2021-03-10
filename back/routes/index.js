@@ -4,7 +4,7 @@ const productsRouter = require('./productsRouter')
 const registerRouter = require('./registerRouter')
 const loginRouter = require('./loginRouter')
 
-router.use("/", productsRouter)
+router.use("/products", productsRouter)
 router.use("/register", registerRouter)
 router.use("/login", loginRouter)
 

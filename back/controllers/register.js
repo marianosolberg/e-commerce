@@ -1,22 +1,6 @@
 const User = require("../models/User");
-const nodemailer = require("nodemailer");
+const transporter = require("./mailCtrl")
 // email sender function
-
-const transporter = nodemailer.createTransport({
-  service: "Gmail",
-  auth: {
-    user: "diego.jofre@bue.edu.ar",
-    pass: "Bb1234567890",
-  },
-});
-// Definimos el email
-// const mailOptions = {
-//   from: "diego.jofre@bue.edu.ar",
-//   to: "diego-jofre@live.com.ar",
-//   subject: "Mensaje de eBooks",
-//   text: "¡eBooks te da la bienvenida!",
-// };
-
 
 const registerController = {
   create(req, res) {
@@ -27,7 +11,7 @@ const registerController = {
         // Enviamos el email
         transporter.sendMail(
           {
-            from: "diego.jofre@bue.edu.ar",
+            from: "equipo.ebooks@gmail.com",
             to: email,
             subject: "Mensaje de eBooks",
             text: "¡eBooks te da la bienvenida!",
