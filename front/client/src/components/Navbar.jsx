@@ -189,7 +189,7 @@ export default function Home() {
               <Badge badgeContent={0} color="secondary"></Badge>
             </IconButton>
             <IconButton aria-label="show  new notifications" color="inherit">
-              <Link href="/shop" color="inherit">
+              <Link href="/carrito" color="inherit">
                 <Badge badgeContent={0} color="secondary"></Badge>
                 <ShoppingCartIcon />{" "}
               </Link>
