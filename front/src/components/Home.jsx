@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setBooks } from "../state/books";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import CameraIcon from "@material-ui/icons/PhotoCamera";
@@ -17,6 +17,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Navbar from "./Navbar";
 import { createMuiTheme } from "@material-ui/core/styles";
+import {setBook} from '../state/book';
 
 function Copyright() {
   return (
@@ -65,8 +66,14 @@ const useStyles = makeStyles((tema) => ({
 export default function Home() {
   const classes = useStyles();
 
+  const history = useHistory();
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books);
+
+  const handleClick = (id) => {
+    dispatch(setBook(id))
+    return history.push("/singleCard")
+  }
 
   useEffect(() => {
     dispatch(setBooks());
@@ -136,11 +143,11 @@ export default function Home() {
                     <Typography>PRECIO:{card.precio}</Typography>
                   </CardContent>
                   <CardActions>
-                    <Link to="/singlecard">
-                      <Button size="small" color="primary">
+                    {/* <Link to="/singlecard"> */}
+                      <Button size="small" color="primary" onClick={() => handleClick(card._id)}>
                         DETALLE
                       </Button>
-                    </Link>
+                    {/* </Link> */}
                     <Link to="/shop">
                       <Button size="small" color="primary">
                         COMPRAR
