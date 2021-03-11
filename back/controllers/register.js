@@ -4,13 +4,11 @@ const transporter = require("./mailCtrl");
 const registerController = {
    create(req, res) {
     User.create(req.body)
-      .then((user) => {
-        user.password = user.encryptPassword(user.password)
+      .then(async (user) => {
+        user.password = await user.encryptPassword(user.password)
         user.save()
-        return user
-        // res.send(user);
+        res.send(user);
       })
-      .then(user => res.send(user))
       .then(() => {
         // Enviamos el email
         transporter.sendMail(
