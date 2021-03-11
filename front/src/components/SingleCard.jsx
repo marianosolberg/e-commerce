@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
   const classes = useStyles();
-  const libro = useSelector(store => store.book)
+  const libro = useSelector((store) => store.book);
 
   return (
     <div className={classes.root}>
@@ -39,11 +39,7 @@ export default function Home() {
         <Grid container spacing={0}>
           <Grid item>
             <ButtonBase className={classes.image}>
-              <img
-                className={classes.img}
-                alt="complex"
-                src={libro.imagen}
-              />
+              <img className={classes.img} alt="complex" src={libro.imagen} />
             </ButtonBase>
           </Grid>
           <Grid item xs={12} sm container>

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Grid, Link, Paper, ButtonBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
@@ -6,6 +7,9 @@ import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Navbar from "./Navbar";
+import { useSelector, useDispatch } from "react-redux";
+import { setBook } from "../state/book";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -20,27 +24,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return [
-    "Select master blaster campaign settings",
-    "Create an ad group",
-    "Create an ad",
-  ];
+  return ["PASO 1", "PASO 2", "PASO 3"];
 }
 
 function getStepContent(stepIndex) {
   switch (stepIndex) {
     case 0:
-      return "Select campaign settings...";
+      return "Comprar ahora ..";
     case 1:
-      return "What is an ad group anyways?";
+      return "Elegi medio de Pago";
     case 2:
-      return "This is the bit I really care about!";
+      return "Donde te lo Enviamos";
     default:
-      return "Unknown stepIndex";
+      return "elegi una opcion valida";
   }
 }
 
 export default function Shop() {
+  const libro = useSelector((state) => state.book);
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
@@ -56,6 +58,9 @@ export default function Shop() {
   const handleReset = () => {
     setActiveStep(0);
   };
+  useEffect(() => {
+    dispatch(setBook("6049144d5b62059f921a35b8"));
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -94,6 +99,42 @@ export default function Shop() {
             </div>
           </div>
         )}
+      </div>
+      <div className={classes.root}>
+        <Paper className={classes.paper}>
+          <Typography gutterBottom variant="subtitle1">
+            {libro.titulo}
+          </Typography>
+          <Grid container>
+            <Grid container style={{ width: 500 }}>
+              <ButtonBase className={classes.image}>
+                <img className={classes.img} alt="complex" src={libro.imagen} />
+              </ButtonBase>
+            </Grid>
+            <Grid item xs={12} sm container>
+              <Grid item xs container direction="column" spacing={4}>
+                <Grid item xs>
+                  <Typography variant="body2" gutterBottom>
+                    {libro.reseqna}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    ID: 520
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Link href="/shop">
+                    <Typography variant="body2" style={{ cursor: "pointer" }}>
+                      Comprar
+                    </Typography>
+                  </Link>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Typography variant="subtitle1">{libro.precio}</Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Paper>
       </div>
     </div>
   );
