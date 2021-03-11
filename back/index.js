@@ -6,9 +6,6 @@ const routes = require("./routes");
 const app = express();
 var cors = require("cors");
 
-app.use(cors());
-app.use(express.json());
-
 // Logger para mostrar todos los request que llegan al servidor
 app.use(morgan("dev"));
 

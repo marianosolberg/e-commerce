@@ -40,4 +40,8 @@ User.prototype.encryptPassword = async (password) => {
   return bcrypt.hash(password, salt)
 }
 
+User.prototype.validPassword = async (passwordEnLogin) => {
+  return this.password === await this.encryptPassword(passwordEnLogin)
+} 
+
 module.exports = User;
