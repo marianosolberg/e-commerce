@@ -17,7 +17,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Navbar from "./Navbar";
 import { createMuiTheme } from "@material-ui/core/styles";
-import {setBook} from '../state/book';
+import { setBook } from "../state/book";
 
 function Copyright() {
   return (
@@ -71,9 +71,9 @@ export default function Home() {
   const books = useSelector((state) => state.books);
 
   const handleClick = (id) => {
-    dispatch(setBook(id))
-    return history.push("/singleCard")
-  }
+    dispatch(setBook(id));
+    return history.push("/singleCard");
+  };
 
   useEffect(() => {
     dispatch(setBooks());
@@ -126,7 +126,6 @@ export default function Home() {
           </Container>
         </div>
         <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
           <Grid container spacing={4}>
             {books.map((card) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
@@ -143,11 +142,14 @@ export default function Home() {
                     <Typography>PRECIO:{card.precio}</Typography>
                   </CardContent>
                   <CardActions>
-                    {/* <Link to="/singlecard"> */}
-                      <Button size="small" color="primary" onClick={() => handleClick(card._id)}>
-                        DETALLE
-                      </Button>
-                    {/* </Link> */}
+                    <Button
+                      size="small"
+                      color="primary"
+                      onClick={() => handleClick(card._id)}
+                    >
+                      DETALLE
+                    </Button>
+
                     <Link to="/shop">
                       <Button size="small" color="primary">
                         COMPRAR

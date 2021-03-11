@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login() {
+export default function Login({ handleSumbit, handleChange }) {
   const classes = useStyles();
 
   return (
@@ -75,28 +75,28 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             Ingresar
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate onSubmit={handleSumbit}>
             <TextField
               variant="outlined"
               margin="normal"
-              required
-              fullWidth
+              required={true}
               id="email"
               label="Email"
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={handleChange}
             />
             <TextField
               variant="outlined"
               margin="normal"
-              required
-              fullWidth
+              required={true}
               name="password"
-              label="Contraseña"
+              label="contaseña"
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={handleChange}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="secondary" />}
