@@ -7,7 +7,6 @@ const schema = new mongoose.Schema({
   },
   imagen: {
     type: String,
-    required: true,
     default:
       "https://4.bp.blogspot.com/-p3WLzI73jiU/W3F9nOfRZdI/AAAAAAAABOU/6Umu0QlXe4UZCnvE_MR2_8tJh2NWZ1jPwCLcBGAs/s1600/libro.png",
   },
@@ -39,6 +38,10 @@ const schema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Categoria",
   },
+  stock: {
+    type: Number,
+    default: 0
+  }
 });
 
 const Product = mongoose.model("Product", schema);

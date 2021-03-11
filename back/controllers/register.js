@@ -2,8 +2,8 @@ const User = require("../models/User");
 const transporter = require("./mailCtrl");
 
 const registerController = {
-   create(req, res) {
-    User.create(req.body)
+   create (req, res) {
+     User.create(req.body)
       .then(async (user) => {
         user.password = await user.encryptPassword(user.password)
         user.save()
