@@ -85,12 +85,11 @@ export default function Home() {
       <CssBaseline />
 
       <main>
-        {/* Hero unit */}
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
             <Typography
               component="h1"
-              variant="h2"
+              variant="h1"
               align="center"
               color="textPrimary"
               gutterBottom
@@ -105,7 +104,7 @@ export default function Home() {
             >
               NUESTRA MEJOR SELECCION DE LIBROS PARA VOS
             </Typography>
-            <div className={classes.heroButtons}>
+            {/* <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
                 <Grid item>
                   <Link to="/shop">
@@ -122,7 +121,7 @@ export default function Home() {
                   </Link>
                 </Grid>
               </Grid>
-            </div>
+            </div> */}
           </Container>
         </div>
         <Container className={classes.cardGrid} maxWidth="md">
@@ -139,7 +138,7 @@ export default function Home() {
                     <Typography gutterBottom variant="h5" component="h2">
                       {card.titulo}
                     </Typography>
-                    <Typography>PRECIO:{card.precio}</Typography>
+                    <Typography>PRECIO: ${card.precio}</Typography>
                   </CardContent>
                   <CardActions>
                     <Button

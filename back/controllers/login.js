@@ -15,7 +15,7 @@ const loginController = {
 
             const token = jwt.sign({ _id: user._id }, "ebook")
             console.log(token)
-            return res.status(200).json({ token })
+            return res.status(200).json({ token, user })
 
         }) //ACA FALTA VALIDACION PORQUE SEA NULL O UN USER IGUAL ENTRA AL RES.SEND
         //.catch(e => res.sendStatus(401))

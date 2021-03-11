@@ -15,6 +15,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import React from "react";
 import IconButton from "@material-ui/core/IconButton";
 import Link from "@material-ui/core/Link";
+import {useSelector} from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -105,6 +106,14 @@ export default function Home() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleLogout = () => {
+    alert("SALIENDO")
+  }
+
+  const token = localStorage.getItem("token")
+  const nombreUsuario = localStorage.getItem("user")
+  const user = useSelector(store => store.user)
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -116,6 +125,8 @@ export default function Home() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
+
+      <MenuItem onClick={handleLogout}>{(token) ? "Logout" : "Login"}</MenuItem>
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
@@ -184,14 +195,13 @@ export default function Home() {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+            <Typography className={classes.title} variant="h3" noWrap>
+            {nombreUsuario}
+            </Typography>
             <IconButton aria-label="show  new notifications" color="inherit">
-              <NotificationsIcon />
-              <Badge badgeContent={0} color="secondary"></Badge>
-            </IconButton>
-            <IconButton aria-label="show  new notifications" color="inherit">
-              <Link href="/carrito" color="inherit">
+              <Link href="/shop" color="inherit">
                 <Badge badgeContent={0} color="secondary"></Badge>
-                <ShoppingCartIcon />{" "}
+                <ShoppingCartIcon />
               </Link>
             </IconButton>
             <IconButton
