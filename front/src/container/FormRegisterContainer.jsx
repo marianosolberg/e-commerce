@@ -23,10 +23,16 @@ const RegisterContainer = () => {
 
     return axios
       .post("/api/register", { nombre, apellido, password, email })
-      .then(() => alert("exitoso"))
-      .then(() => {
-        return history.push("/");
+      .then((user) => {
+        console.log(user.data);
+        if (user.data.errors) {
+          alert("todos los campos son requeridos");
+        } else {
+          alert("creacion exitosa");
+          return history.push("/");
+        }
       })
+
       .catch((e) => console.log(e));
   };
 

@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login({ handleSumbit, handleChange }) {
+export default function Login({ handleSubmit, handleChange }) {
   const classes = useStyles();
 
   return (
@@ -75,11 +75,12 @@ export default function Login({ handleSumbit, handleChange }) {
           <Typography component="h1" variant="h5">
             Ingresar
           </Typography>
-          <form className={classes.form} noValidate onSubmit={handleSumbit}>
+          <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <TextField
               variant="outlined"
               margin="normal"
               required={true}
+              fullWidth
               id="email"
               label="Email"
               name="email"
@@ -91,6 +92,7 @@ export default function Login({ handleSumbit, handleChange }) {
               variant="outlined"
               margin="normal"
               required={true}
+              fullWidth
               name="password"
               label="contaseña"
               type="password"

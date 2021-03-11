@@ -64,7 +64,7 @@ export default function Home() {
               </Grid>
             </Grid>
             <Grid item>
-              <Typography variant="subtitle1">{libro.precio}</Typography>
+              <Typography variant="subtitle1">${libro.precio}</Typography>
             </Grid>
           </Grid>
         </Grid>
