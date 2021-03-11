@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
   const classes = useStyles();
+  const libro = useSelector(store => store.book)
 
   return (
     <div className={classes.root}>
@@ -40,7 +42,7 @@ export default function Home() {
               <img
                 className={classes.img}
                 alt="complex"
-                src="https://imagessl8.casadellibro.com/a/l/t7/48/9788479537548.jpg"
+                src={libro.imagen}
               />
             </ButtonBase>
           </Grid>
@@ -48,10 +50,10 @@ export default function Home() {
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  El Secreto Para Jovenes
+                  {libro.titulo}
                 </Typography>
                 <Typography variant="body2" gutterBottom>
-                  Atrapante como pocos
+                  {libro.reseqna}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
                   ID: 520
@@ -66,7 +68,7 @@ export default function Home() {
               </Grid>
             </Grid>
             <Grid item>
-              <Typography variant="subtitle1">$1500.00</Typography>
+              <Typography variant="subtitle1">{libro.precio}</Typography>
             </Grid>
           </Grid>
         </Grid>
