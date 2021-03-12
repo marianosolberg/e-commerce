@@ -86,7 +86,6 @@ export default function Home() {
     <React.Fragment>
       <Navbar />
       <CssBaseline />
-
       <main className="color">
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
@@ -175,7 +174,7 @@ export default function Home() {
           </Grid>
         </Container>
       </main>
-      {/* Footer */}
+      {/*  Footer
       <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
           Footer
@@ -190,7 +189,7 @@ export default function Home() {
         </Typography>
         <Copyright />
       </footer>
-      {/* End footer */}
+      End footer */}
     </React.Fragment>
   );
 }

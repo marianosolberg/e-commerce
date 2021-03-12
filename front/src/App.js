@@ -5,6 +5,7 @@ import Shop from "./components/Shop";
 import SingleCard from "./components/SingleCard";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import FormLoginContainer from "./container/FormLoginContainer";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
           <Route exact path="/singlecard" component={SingleCard} />
         </Switch>
       </BrowserRouter>
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 }
