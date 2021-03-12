@@ -12,13 +12,14 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(4),
     margin: "auto",
-    maxWidth: 500,
+    maxWidth: 1000,
   },
   image: {
     width: 200,
-    height: 400,
+    maxHeight: 400,
+    paddingBottom: 20,
   },
   img: {
     margin: "auto",
@@ -33,42 +34,44 @@ export default function Home() {
   const libro = useSelector((store) => store.book);
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} className="color">
       <Navbar />
-      <Paper className={classes.paper}>
-        <Grid container spacing={0}>
-          <Grid item>
-            <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src={libro.imagen} />
-            </ButtonBase>
-          </Grid>
-          <Grid item xs={12} sm container>
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item xs>
-                <Typography gutterBottom variant="subtitle1">
-                  {libro.titulo}
-                </Typography>
-                <Typography variant="body2" gutterBottom>
-                  {libro.reseqna}
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  ID: 520
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Link href="/shop">
-                  <Typography variant="body2" style={{ cursor: "pointer" }}>
-                    Comprar
+      <div style={{ marginTop: "50px" }}>
+        <Paper className={classes.paper}>
+          <Typography gutterBottom variant="h3" align="center">
+            {libro.titulo}
+          </Typography>
+          <Grid container>
+            <Grid container style={{ width: 500 }} justify="space-around">
+              <ButtonBase className={classes.image}>
+                <img className={classes.img} alt="complex" src={libro.imagen} />
+              </ButtonBase>
+            </Grid>
+            <Grid item xs={12} sm container>
+              <Grid item xs container direction="column" spacing={2}>
+                <Grid item xs>
+                  <Typography variant="body2" gutterBottom>
+                    {libro.reseqna}
                   </Typography>
-                </Link>
+                  <Typography variant="body2" color="textSecondary">
+                    Autor:{libro.autor}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    $ {libro.precio}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Link href="/shop">
+                    <Typography variant="body2" style={{ cursor: "pointer" }}>
+                      Comprar
+                    </Typography>
+                  </Link>
+                </Grid>
               </Grid>
             </Grid>
-            <Grid item>
-              <Typography variant="subtitle1">${libro.precio}</Typography>
-            </Grid>
           </Grid>
-        </Grid>
-      </Paper>
+        </Paper>
+      </div>
     </div>
   );
 }
