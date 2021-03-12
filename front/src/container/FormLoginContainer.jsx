@@ -22,7 +22,7 @@ const FormLoginContainer = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    return axios.post(`/api/login`, { email }).then((user) => {
+    return axios.post(`/api/login`, { email, password }).then((user) => {
       localStorage.setItem("token", user.data.token);
       localStorage.setItem("user", user.data.user.nombre);
       dispatch(setUser(user.data));

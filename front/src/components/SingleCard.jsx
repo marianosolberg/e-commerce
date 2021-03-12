@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, {useEffect} from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Navbar from "./Navbar";
 import Link from "@material-ui/core/Link";
+import {setBook} from '../state/book';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -29,9 +30,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Home() {
+export default function SingleCard(props) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  // console.log(props.match.params.id)
   const libro = useSelector((store) => store.book);
+  
+  useEffect(() => {
+    dispatch(setBook(props.match.params.id));
+  },[])
+  
 
   return (
     <div className={classes.root} className="color">

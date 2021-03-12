@@ -74,8 +74,8 @@ export default function Home() {
   const books = useSelector((state) => state.books);
 
   const handleClick = (id) => {
-    dispatch(setBook(id));
-    return history.push("/singleCard");
+    // dispatch(setBook(id));  604ac406ed088172721807d9
+    return history.push(`/SingleCard/${id}`);
   };
 
   useEffect(() => {
@@ -130,7 +130,7 @@ export default function Home() {
         <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={4}>
             {books.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+              <Grid item key={card._id} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}

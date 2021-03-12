@@ -30,18 +30,22 @@ const schema  = new mongoose.Schema({
   isAdmin: {
     type: Boolean,
     default: false,
+  },
+  salt: {
+    type: String
   }
 });
 
 const User = mongoose.model("User", schema);
 
-User.prototype.encryptPassword = async (password) => {
+User.prototype.encryptPassword = async function (password){
   const salt = await bcrypt.genSalt(10)
-  return bcrypt.hash(password, salt)
+  this.salt = salt
+  return bcrypt.hash(password, this.salt)
 }
 
-User.prototype.validPassword = async (passwordEnLogin) => {
-  return this.password === await this.encryptPassword(passwordEnLogin)
+User.prototype.validPassword = async function (passwordEnLogin) {
+  return this.password === await bcrypt.hash(passwordEnLogin, this.salt)
 } 
 
 module.exports = User;
