@@ -53,6 +53,9 @@ const useStyles = makeStyles((tema) => ({
   },
   cardMedia: {
     paddingTop: "100%",
+    width: "65%",
+    marginTop: "15px",
+    margin: "auto",
   },
   cardContent: {
     flexGrow: 1,
@@ -84,7 +87,7 @@ export default function Home() {
       <Navbar />
       <CssBaseline />
 
-      <main>
+      <main className="color">
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
             <Typography
@@ -149,11 +152,21 @@ export default function Home() {
                       DETALLE
                     </Button>
 
-                    <Link to="/shop">
-                      <Button size="small" color="primary">
-                        COMPRAR
-                      </Button>
-                    </Link>
+                    <Button
+                      size="small"
+                      color="primary"
+                      onClick={() => history.push("/shop")}
+                    >
+                      COMPRAR
+                    </Button>
+
+                    <Button
+                      size="small"
+                      color="primary"
+                      onClick={() => history.push("/shop")}
+                    >
+                      Agregar al carrito
+                    </Button>
                   </CardActions>
                 </Card>
               </Grid>

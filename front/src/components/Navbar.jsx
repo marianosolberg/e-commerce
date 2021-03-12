@@ -15,7 +15,8 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import React from "react";
 import IconButton from "@material-ui/core/IconButton";
 import Link from "@material-ui/core/Link";
-import {useSelector} from 'react-redux';
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -80,12 +81,16 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
 export default function Home() {
+  const token = localStorage.getItem("token");
+  const nombreUsuario = localStorage.getItem("user");
+  const user = useSelector((store) => store.user);
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
+  const history = useHistory();
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -107,12 +112,27 @@ export default function Home() {
   };
 
   const handleLogout = () => {
-    alert("SALIENDO")
-  }
+    if (token) {
+      history.push("/logout");
+    }
+    if (!nombreUsuario && !token) {
+      history.push("/login");
+    }
+    if (nombreUsuario) {
+      console.log("estamos en logout");
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      history.push("/");
+    }
+  };
 
-  const token = localStorage.getItem("token")
-  const nombreUsuario = localStorage.getItem("user")
-  const user = useSelector(store => store.user)
+  const handleRegister = () => {
+    if (nombreUsuario) {
+      history.push("/profile");
+    } else {
+      history.push("/register");
+    }
+  };
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -125,10 +145,11 @@ export default function Home() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-
-      <MenuItem onClick={handleLogout}>{(token) ? "Logout" : "Login"}</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleLogout}>{token ? "Logout" : "Login"}</MenuItem>
+      <MenuItem onClick={handleRegister}>
+        {nombreUsuario ? "Profile" : "Register"}
+      </MenuItem>
+      {/* <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
     </Menu>
   );
 
@@ -196,7 +217,7 @@ export default function Home() {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <Typography className={classes.title} variant="h3" noWrap>
-            {nombreUsuario}
+              {nombreUsuario}
             </Typography>
             <IconButton aria-label="show  new notifications" color="inherit">
               <Link href="/shop" color="inherit">
