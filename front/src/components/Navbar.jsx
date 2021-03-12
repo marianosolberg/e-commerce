@@ -198,9 +198,11 @@ export default function Home() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-            e-Book
-          </Typography>
+          <Link href="/" color="inherit">
+            <Typography className={classes.title} variant="h6" noWrap>
+              e-Book
+            </Typography>
+          </Link>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
