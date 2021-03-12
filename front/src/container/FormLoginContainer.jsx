@@ -23,10 +23,10 @@ const FormLoginContainer = () => {
     e.preventDefault();
 
     return axios.post(`/api/login`, { email }).then((user) => {
-      localStorage.setItem("token", user.data.token)
-      localStorage.setItem("user", user.data.user.nombre)
+      localStorage.setItem("token", user.data.token);
+      localStorage.setItem("user", user.data.user.nombre);
       dispatch(setUser(user.data));
-      return history.push("/home");
+      return history.push("/");
     });
   };
 

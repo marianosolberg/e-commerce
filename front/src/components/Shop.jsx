@@ -21,6 +21,22 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
+  paper: {
+    padding: theme.spacing(4),
+    margin: "auto",
+    maxWidth: 1000,
+  },
+  image: {
+    width: 80,
+    maxHeight: 100,
+    paddingBottom: 20,
+  },
+  img: {
+    margin: "auto",
+    display: "block",
+    maxWidth: "100%",
+    maxHeight: "100%",
+  },
 }));
 
 function getSteps() {
@@ -63,62 +79,27 @@ export default function Shop() {
   }, []);
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} className="color">
       <Navbar />
-      <Stepper activeStep={activeStep} alternativeLabel>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-      <div>
-        {activeStep === steps.length ? (
-          <div>
-            <Typography className={classes.instructions}>
-              All steps completed
-            </Typography>
-            <Button onClick={handleReset}>Reset</Button>
-          </div>
-        ) : (
-          <div>
-            <Typography className={classes.instructions}>
-              {getStepContent(activeStep)}
-            </Typography>
-            <div>
-              <Button
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                className={classes.backButton}
-              >
-                Back
-              </Button>
-              <Button variant="contained" color="primary" onClick={handleNext}>
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
-              </Button>
-            </div>
-          </div>
-        )}
-      </div>
-      <div className={classes.root}>
+      <div style={{ marginTop: "50px" }}>
         <Paper className={classes.paper}>
-          <Typography gutterBottom variant="subtitle1">
-            {libro.titulo}
-          </Typography>
           <Grid container>
-            <Grid container style={{ width: 500 }}>
+            <Grid container style={{ width: 500 }} justify="space-around">
               <ButtonBase className={classes.image}>
                 <img className={classes.img} alt="complex" src={libro.imagen} />
               </ButtonBase>
             </Grid>
             <Grid item xs={12} sm container>
-              <Grid item xs container direction="column" spacing={4}>
+              <Grid item xs container direction="column" spacing={2}>
                 <Grid item xs>
-                  <Typography variant="body2" gutterBottom>
-                    {libro.reseqna}
+                  <Typography gutterBottom variant="h6">
+                    {libro.titulo}
+                  </Typography>
+                  <Typography gutterBottom variant="h6">
+                    $ {libro.precio}
                   </Typography>
                   <Typography variant="body2" color="textSecondary">
-                    ID: 520
+                    Autor:{libro.autor}
                   </Typography>
                 </Grid>
                 <Grid item>
@@ -128,9 +109,6 @@ export default function Shop() {
                     </Typography>
                   </Link>
                 </Grid>
-              </Grid>
-              <Grid item>
-                <Typography variant="subtitle1">{libro.precio}</Typography>
               </Grid>
             </Grid>
           </Grid>
