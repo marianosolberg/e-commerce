@@ -130,6 +130,7 @@ export default function Home() {
               <Grid item key={card} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
+                    style={{ padding: 20 }}
                     className={classes.cardMedia}
                     image={card.imagen}
                     title="Image title"
