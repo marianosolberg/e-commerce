@@ -121,7 +121,7 @@ export default function Register({ handleChange, handleSubmit }) {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/" variant="body2">
+              <Link href="/login" variant="body2">
                 Ya tenes cuenta , logueate
               </Link>
             </Grid>

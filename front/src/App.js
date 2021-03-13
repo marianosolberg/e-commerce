@@ -16,12 +16,16 @@ function App() {
           <Route exact path="/login" component={FormLoginContainer} />
           <Route exact path="/register" component={FormRegisterContainer} />
           <Route exact path="/shop" component={Shop} />
-          <Route exact path="/singlecard" component={SingleCard} />
+          <Route exact path="/singlecard/:id" component={SingleCard} />
         </Switch>
       </BrowserRouter>
+<<<<<<< HEAD
       <footer>
         <Footer />
       </footer>
+=======
+      <Footer />
+>>>>>>> b67c31aeb528027abe9ee76b69b147c4072e07ad
     </div>
   );
 }

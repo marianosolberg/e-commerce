@@ -29,7 +29,7 @@ const RegisterContainer = () => {
           alert("todos los campos son requeridos");
         } else {
           alert("creacion exitosa");
-          return history.push("/");
+          return history.push("/login");
         }
       })
 

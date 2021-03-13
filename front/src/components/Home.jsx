@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setBooks } from "../state/books";
-import { Link, useHistory } from "react-router-dom";
-import AppBar from "@material-ui/core/AppBar";
+import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import CameraIcon from "@material-ui/icons/PhotoCamera";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Navbar from "./Navbar";
-import { createMuiTheme } from "@material-ui/core/styles";
-import { setBook } from "../state/book";
 
 function Copyright() {
   return (
@@ -74,8 +69,8 @@ export default function Home() {
   const books = useSelector((state) => state.books);
 
   const handleClick = (id) => {
-    dispatch(setBook(id));
-    return history.push("/singleCard");
+    // dispatch(setBook(id));  604ac406ed088172721807d9
+    return history.push(`/SingleCard/${id}`);
   };
 
   useEffect(() => {
@@ -129,7 +124,7 @@ export default function Home() {
         <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={4}>
             {books.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+              <Grid item key={card._id} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
                     style={{ padding: 20 }}
@@ -174,22 +169,6 @@ export default function Home() {
           </Grid>
         </Container>
       </main>
-      {/*  Footer
-      <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="textSecondary"
-          component="p"
-        >
-          Gracias por visitar nuestra pagina
-        </Typography>
-        <Copyright />
-      </footer>
-      End footer */}
     </React.Fragment>
   );
 }
