@@ -51,6 +51,7 @@ const useStyles = makeStyles((tema) => ({
     width: "65%",
     marginTop: "15px",
     margin: "auto",
+    height: "300px",
   },
   cardContent: {
     flexGrow: 1,

@@ -19,13 +19,7 @@ function App() {
           <Route exact path="/singlecard/:id" component={SingleCard} />
         </Switch>
       </BrowserRouter>
-<<<<<<< HEAD
-      <footer>
-        <Footer />
-      </footer>
-=======
       <Footer />
->>>>>>> b67c31aeb528027abe9ee76b69b147c4072e07ad
     </div>
   );
 }
