@@ -1,49 +1,24 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import ButtonBase from "@material-ui/core/ButtonBase";
 import Navbar from "./Navbar";
-import Link from "@material-ui/core/Link";
-import {setBook} from '../state/book';
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(4),
-    margin: "auto",
-    maxWidth: 1000,
-  },
-  image: {
-    width: 200,
-    maxHeight: 400,
-    paddingBottom: 20,
-  },
-  img: {
-    margin: "auto",
-    display: "block",
-    maxWidth: "100%",
-    maxHeight: "100%",
-  },
-}));
+import { setBook } from "../state/book";
+import { Grid, Paper, Typography, ButtonBase, Link } from "@material-ui/core";
+import useStyles from "../utils/stylesSIngleCard";
 
-export default function SingleCard(props) {
+export default function SingleCard({ changeMode, id }) {
+  console.log(id);
   const classes = useStyles();
   const dispatch = useDispatch();
-  // console.log(props.match.params.id)
+
   const libro = useSelector((store) => store.book);
-  
+
   useEffect(() => {
-    dispatch(setBook(props.match.params.id));
-  },[])
-  
+    dispatch(setBook(id));
+  }, []);
 
   return (
-    <div className={classes.root} className="color">
-      <Navbar />
+    <div className={classes.root}>
+      <Navbar changeMode={changeMode} />
       <div style={{ marginTop: "50px" }}>
         <Paper className={classes.paper}>
           <Typography gutterBottom variant="h3" align="center">
