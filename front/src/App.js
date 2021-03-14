@@ -9,10 +9,11 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 
 import { ThemeProvider } from "@material-ui/styles";
-
 import { createMuiTheme, CssBaseline } from "@material-ui/core";
-
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+
+import lightBlue from "@material-ui/core/colors/lightBlue";
+import blueGrey from "@material-ui/core/colors/blueGrey";
 
 function App() {
   const [modo, setModo] = useState("dark");
@@ -21,9 +22,10 @@ function App() {
   const theme = React.useMemo(
     () =>
       createMuiTheme({
-        palette: {
-          type: prefersDarkMode ? "dark" : "light",
-        },
+        palette: prefersDarkMode
+          ? { type: "dark", primary: { main: lightBlue[700] } }
+          : { type: "light", primary: { main: blueGrey[800] } },
+
         typography: {
           fontFamily: ["Ranchers", "cursive"].join(","),
         },
