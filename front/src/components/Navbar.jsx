@@ -1,28 +1,33 @@
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
-import Badge from "@material-ui/core/Badge";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
+import React from "react";
+import { useHistory } from "react-router-dom";
+
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  InputBase,
+  Badge,
+  MenuItem,
+  Menu,
+  IconButton,
+  Avatar,
+} from "@material-ui/core";
+
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import React from "react";
-import IconButton from "@material-ui/core/IconButton";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import useStyles from "../utils/stylesNavbar";
-import "fontsource-roboto";
-import Avatar from "@material-ui/core/Avatar";
+import Brightness4Icon from "@material-ui/icons/Brightness4";
 
-export default function Home({ handleChange }) {
+import useStyles from "../utils/stylesNavbar";
+
+import MenuCategorias from "./MenuCategorias";
+import AdminMenu from "./AdminMenu";
+
+export default function Navbar({ changeMode }) {
   const token = localStorage.getItem("token");
   const nombreUsuario = localStorage.getItem("user");
-  const user = useSelector((store) => store.user);
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -57,7 +62,6 @@ export default function Home({ handleChange }) {
       history.push("/login");
     }
     if (nombreUsuario) {
-      console.log("estamos en logout");
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       history.push("/");
@@ -109,9 +113,13 @@ export default function Home({ handleChange }) {
           aria-haspopup="true"
           color="inherit"
         >
-          <AccountCircle />
+          {nombreUsuario ? (
+            <Avatar alt="Remy Sharp" src="jesu.jpeg" />
+          ) : (
+            <AccountCircle />
+          )}
         </IconButton>
-        <p>Profile</p>
+        <p>Perfil</p>
       </MenuItem>
     </Menu>
   );
@@ -128,16 +136,23 @@ export default function Home({ handleChange }) {
           >
             <MenuIcon />
           </IconButton>
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <Typography
-              className={classes.title}
-              variant="h6"
-              noWrap
-              color="white"
+
+          <Typography
+            className={classes.title}
+            variant="h6"
+            noWrap
+            color="initial"
+          >
+            <IconButton
+              aria-label="go to home"
+              color="inherit"
+              style={{ padding: 20 }}
+              onClick={() => history.push("/")}
             >
               e-Books
-            </Typography>
-          </Link>
+            </IconButton>
+          </Typography>
+
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -150,10 +165,11 @@ export default function Home({ handleChange }) {
               }}
               inputProps={{ "aria-label": "search" }}
               name="titulo"
-              onChange={handleChange}
             />
           </div>
+          <MenuCategorias />
           <div className={classes.grow} />
+          <AdminMenu />
           <div className={classes.sectionDesktop}>
             <Typography
               className={classes.title}
@@ -168,10 +184,21 @@ export default function Home({ handleChange }) {
               aria-label="show  new notifications"
               color="inherit"
               style={{ padding: 20 }}
+              onClick={changeMode}
             >
               <Badge badgeContent={0} color="secondary"></Badge>
-              <ShoppingCartIcon onClick={() => history.push("/shop")} />
+              <Brightness4Icon />
             </IconButton>
+            <IconButton
+              aria-label="show  new notifications"
+              color="inherit"
+              style={{ padding: 20 }}
+              onClick={() => history.push("/shop")}
+            >
+              <Badge badgeContent={0} color="secondary"></Badge>
+              <ShoppingCartIcon />
+            </IconButton>
+
             <IconButton
               edge="end"
               aria-label="account of current user"

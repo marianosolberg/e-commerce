@@ -1,10 +1,7 @@
 import React, { useEffect } from "react";
 import { Grid, Link, Paper, ButtonBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
-import Button from "@material-ui/core/Button";
+
 import Typography from "@material-ui/core/Typography";
 import Navbar from "./Navbar";
 import { useSelector, useDispatch } from "react-redux";
@@ -39,48 +36,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function getSteps() {
-  return ["PASO 1", "PASO 2", "PASO 3"];
-}
-
-function getStepContent(stepIndex) {
-  switch (stepIndex) {
-    case 0:
-      return "Comprar ahora ..";
-    case 1:
-      return "Elegi medio de Pago";
-    case 2:
-      return "Donde te lo Enviamos";
-    default:
-      return "elegi una opcion valida";
-  }
-}
-
-export default function Shop() {
+export default function Shop({ changeMode }) {
   const libro = useSelector((state) => state.book);
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const steps = getSteps();
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
-  };
   useEffect(() => {
     dispatch(setBook("6049144d5b62059f921a35b8"));
   }, []);
 
   return (
-    <div className={classes.root} className="color">
-      <Navbar />
+    <div className="color">
+      <Navbar changeMode={changeMode} />
       <div style={{ marginTop: "50px" }}>
         <Paper className={classes.paper}>
           <Grid container>
