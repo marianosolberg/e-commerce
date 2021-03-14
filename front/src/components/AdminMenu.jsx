@@ -58,7 +58,7 @@ export default function AdminMenu() {
         aria-controls="customized-menu"
         aria-haspopup="true"
         variant="contained"
-        color="initial"
+        color="inherit"
         onClick={handleClick}
       >
         Administador
