@@ -24,6 +24,9 @@ function App() {
         palette: {
           type: prefersDarkMode ? "dark" : "light",
         },
+        typography: {
+          fontFamily: ["Ranchers", "cursive"].join(","),
+        },
       }),
     [prefersDarkMode]
   );
