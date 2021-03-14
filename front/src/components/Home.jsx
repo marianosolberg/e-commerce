@@ -14,7 +14,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Navbar from "./Navbar";
 
-
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -52,6 +51,7 @@ const useStyles = makeStyles((tema) => ({
     width: "65%",
     marginTop: "15px",
     margin: "auto",
+    height: "300px",
   },
   cardContent: {
     flexGrow: 1,
@@ -82,7 +82,6 @@ export default function Home() {
     <React.Fragment>
       <Navbar />
       <CssBaseline />
-
       <main className="color">
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
@@ -129,6 +128,7 @@ export default function Home() {
               <Grid item key={card._id} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
+                    style={{ padding: 20 }}
                     className={classes.cardMedia}
                     image={card.imagen}
                     title="Image title"
