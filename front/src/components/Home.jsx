@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setBooks } from "../state/books";
 import { useHistory } from "react-router-dom";
+import ReactPaginate from "react-paginate"
 
 import Navbar from "./Navbar";
 import useStyles from "../utils/stylesHome";
@@ -24,6 +25,11 @@ export default function Home({ changeMode }) {
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books);
 
+  const [pageNumber, setPageNumber] = useState(0);
+
+  const booksPerPage = 6;
+  const pagesVisited = pageNumber * booksPerPage;
+
   const handleClick = (id) => {
     // dispatch(setBook(id));  604ac406ed088172721807d9
     return history.push(`/SingleCard/${id}`);
@@ -32,6 +38,59 @@ export default function Home({ changeMode }) {
   useEffect(() => {
     dispatch(setBooks());
   }, []);
+
+  const displayBooks = books
+    .slice(pagesVisited, pagesVisited + booksPerPage)
+    .map((card) => {
+      return (
+        <Grid item key={card._id} xs={12} sm={6} md={4}>
+          <Card className={classes.card}>
+            <CardMedia
+              style={{ padding: 20 }}
+              className={classes.cardMedia}
+              image={card.imagen}
+              title="Image title"
+            />
+            <CardContent className={classes.cardContent}>
+              <Typography gutterBottom variant="h5" component="h2">
+                {card.titulo}
+              </Typography>
+              <Typography>PRECIO: ${card.precio}</Typography>
+            </CardContent>
+            <CardActions>
+              <Button
+                size="small"
+                color="primary"
+                onClick={() => handleClick(card._id)}
+              >
+                DETALLE
+              </Button>
+
+              <Button
+                size="small"
+                color="primary"
+                onClick={() => history.push("/shop")}
+              >
+                COMPRAR
+              </Button>
+
+              <Button
+                size="small"
+                color="primary"
+                onClick={() => history.push("/shop")}
+              >
+                Agregar al carrito
+              </Button>
+            </CardActions>
+          </Card>
+        </Grid>
+      );
+    });
+  
+  const pageCount = Math.ceil(books.length / booksPerPage)  
+  const changePage = ({selected}) => {
+    setPageNumber(selected)
+  }
 
   return (
     <React.Fragment>
@@ -60,49 +119,18 @@ export default function Home({ changeMode }) {
         </div>
         <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={4}>
-            {books.map((card) => (
-              <Grid item key={card._id} xs={12} sm={6} md={4}>
-                <Card className={classes.card}>
-                  <CardMedia
-                    style={{ padding: 20 }}
-                    className={classes.cardMedia}
-                    image={card.imagen}
-                    title="Image title"
-                  />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {card.titulo}
-                    </Typography>
-                    <Typography>PRECIO: ${card.precio}</Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button
-                      size="small"
-                      color="primary"
-                      onClick={() => handleClick(card._id)}
-                    >
-                      DETALLE
-                    </Button>
-
-                    <Button
-                      size="small"
-                      color="primary"
-                      onClick={() => history.push("/shop")}
-                    >
-                      COMPRAR
-                    </Button>
-
-                    <Button
-                      size="small"
-                      color="primary"
-                      onClick={() => history.push("/shop")}
-                    >
-                      Agregar al carrito
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
+            {displayBooks}
+            <ReactPaginate
+              previousLabel={"Previos"}
+              nextLabel={"Next"}
+              pageCount={pageCount}
+              onPageChange={changePage}
+              containerClassName={"paginationBttns"}
+              previousLinkClassName={"previousBttn"}
+              nextLinkClassName={"nextBttn"}
+              disabledClassName={"paginationDisabled"}
+              activeClassName={"paginationActive"}
+            />
           </Grid>
         </Container>
       </main>
