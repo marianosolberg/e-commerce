@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import Login from "../components/Login";
 
 const FormLoginContainer = () => {
-  const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,7 +13,6 @@ const FormLoginContainer = () => {
   const history = useHistory();
 
   const handleChange = (e) => {
-    if (e.target.name === "nombre") setNombre(e.target.value);
     if (e.target.name === "email") setEmail(e.target.value);
     if (e.target.name === "password") setPassword(e.target.value);
   };
@@ -22,12 +20,15 @@ const FormLoginContainer = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    return axios.post(`/api/login`, { email, password }).then((user) => {
-      localStorage.setItem("token", user.data.token);
-      localStorage.setItem("user", user.data.user.nombre);
-      dispatch(setUser(user.data));
-      return history.push("/");
-    });
+    return axios
+      .post(`/api/login`, { email, password })
+      .then((res) => {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("user", res.data.user.nombre);
+        dispatch(setUser(res.data));
+        return history.push("/");
+      })
+      .catch(() => alert("datos incorrectos, intente de nuevo"));
   };
 
   return <Login handleChange={handleChange} handleSubmit={handleSubmit} />;

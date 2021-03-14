@@ -1,90 +1,33 @@
-import { fade, makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
-import Badge from "@material-ui/core/Badge";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
+import React from "react";
+import { useHistory } from "react-router-dom";
+
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  InputBase,
+  Badge,
+  MenuItem,
+  Menu,
+  IconButton,
+  Avatar,
+} from "@material-ui/core";
+
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import React from "react";
-import IconButton from "@material-ui/core/IconButton";
-import Link from "@material-ui/core/Link";
-import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import Brightness4Icon from "@material-ui/icons/Brightness4";
 
-const useStyles = makeStyles((theme) => ({
-  grow: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    display: "none",
-    [theme.breakpoints.up("sm")]: {
-      display: "block",
-    },
-  },
-  search: {
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(3),
-      width: "auto",
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  inputRoot: {
-    color: "inherit",
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-  sectionDesktop: {
-    display: "none",
-    [theme.breakpoints.up("md")]: {
-      display: "flex",
-    },
-  },
-  sectionMobile: {
-    display: "flex",
-    [theme.breakpoints.up("md")]: {
-      display: "none",
-    },
-  },
-}));
-export default function Home() {
+import useStyles from "../utils/stylesNavbar";
+
+import MenuCategorias from "./MenuCategorias";
+import AdminMenu from "./AdminMenu";
+
+export default function Navbar({ changeMode }) {
   const token = localStorage.getItem("token");
   const nombreUsuario = localStorage.getItem("user");
-  const user = useSelector((store) => store.user);
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -119,7 +62,6 @@ export default function Home() {
       history.push("/login");
     }
     if (nombreUsuario) {
-      console.log("estamos en logout");
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       history.push("/");
@@ -164,14 +106,6 @@ export default function Home() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -179,9 +113,13 @@ export default function Home() {
           aria-haspopup="true"
           color="inherit"
         >
-          <AccountCircle />
+          {nombreUsuario ? (
+            <Avatar alt="Remy Sharp" src="jesu.jpeg" />
+          ) : (
+            <AccountCircle />
+          )}
         </IconButton>
-        <p>Profile</p>
+        <p>Perfil</p>
       </MenuItem>
     </Menu>
   );
@@ -198,11 +136,23 @@ export default function Home() {
           >
             <MenuIcon />
           </IconButton>
-          <Link href="/" color="inherit">
-            <Typography className={classes.title} variant="h6" noWrap>
-              e-Book
-            </Typography>
-          </Link>
+
+          <Typography
+            className={classes.title}
+            variant="h6"
+            noWrap
+            color="initial"
+          >
+            <IconButton
+              aria-label="go to home"
+              color="inherit"
+              style={{ padding: 20 }}
+              onClick={() => history.push("/")}
+            >
+              e-Books
+            </IconButton>
+          </Typography>
+
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -214,19 +164,41 @@ export default function Home() {
                 input: classes.inputInput,
               }}
               inputProps={{ "aria-label": "search" }}
+              name="titulo"
             />
           </div>
+          <MenuCategorias />
           <div className={classes.grow} />
+          <AdminMenu />
           <div className={classes.sectionDesktop}>
-            <Typography className={classes.title} variant="h3" noWrap>
+            <Typography
+              className={classes.title}
+              variant="h4"
+              noWrap
+              style={{ padding: 10 }}
+              color="inherit"
+            >
               {nombreUsuario}
             </Typography>
-            <IconButton aria-label="show  new notifications" color="inherit">
-              <Link href="/shop" color="inherit">
-                <Badge badgeContent={0} color="secondary"></Badge>
-                <ShoppingCartIcon />
-              </Link>
+            <IconButton
+              aria-label="show  new notifications"
+              color="inherit"
+              style={{ padding: 20 }}
+              onClick={changeMode}
+            >
+              <Badge badgeContent={0} color="secondary"></Badge>
+              <Brightness4Icon />
             </IconButton>
+            <IconButton
+              aria-label="show  new notifications"
+              color="inherit"
+              style={{ padding: 20 }}
+              onClick={() => history.push("/shop")}
+            >
+              <Badge badgeContent={0} color="secondary"></Badge>
+              <ShoppingCartIcon />
+            </IconButton>
+
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -235,7 +207,11 @@ export default function Home() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              {nombreUsuario ? (
+                <Avatar alt="Remy Sharp" src="jesu.jpeg" />
+              ) : (
+                <AccountCircle />
+              )}
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>
