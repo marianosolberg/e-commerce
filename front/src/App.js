@@ -14,6 +14,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 import lightBlue from "@material-ui/core/colors/lightBlue";
 import blueGrey from "@material-ui/core/colors/blueGrey";
+import AdminUsersContainer from "./container/AdminUsersContainer";
 
 function App() {
   const [modo, setModo] = useState("dark");
@@ -62,6 +63,7 @@ function App() {
                 <SingleCard changeMode={changeMode} id={match.params.id} />
               )}
             />
+            <Route exact path="/admin/users" component={AdminUsersContainer}/>
           </Switch>
         </BrowserRouter>
 

@@ -9,6 +9,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import BuildIcon from "@material-ui/icons/Build";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import BookmarksIcon from "@material-ui/icons/Bookmarks";
+import { useHistory } from "react-router";
 
 const StyledMenu = withStyles({
   paper: {
@@ -42,6 +43,7 @@ const StyledMenuItem = withStyles((theme) => ({
 }))(MenuItem);
 
 export default function AdminMenu() {
+  const history = useHistory()
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -51,6 +53,10 @@ export default function AdminMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleUsers = () => {
+    history.push("/admin/users")
+  }
 
   return (
     <div>
@@ -70,7 +76,7 @@ export default function AdminMenu() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <StyledMenuItem>
+        <StyledMenuItem onClick={handleUsers}>
           <ListItemIcon>
             <SupervisorAccountIcon fontSize="small" />
           </ListItemIcon>
