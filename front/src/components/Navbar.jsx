@@ -29,7 +29,14 @@ import AdminMenu from "./AdminMenu";
 export default function Navbar({ changeMode }) {
   const token = localStorage.getItem("token");
   const nombreUsuario = localStorage.getItem("user");
+  const isAdmin = localStorage.getItem("isAdmin");
 
+  console.log(isAdmin)
+
+  console.log(token)
+
+  console.log(nombreUsuario)
+  
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -66,6 +73,7 @@ export default function Navbar({ changeMode }) {
     if (nombreUsuario) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
+      localStorage.removeItem("isAdmin")
       history.push("/");
     }
   };
@@ -178,7 +186,8 @@ export default function Navbar({ changeMode }) {
           </div>
           <MenuCategorias categorias={categorias} />
           <div className={classes.grow} />
-          <AdminMenu />
+          { isAdmin == "true" ? <AdminMenu /> : null}
+          
           <div className={classes.sectionDesktop}>
             <Typography
               className={classes.title}
