@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setBooks } from "../state/books";
 import { useHistory } from "react-router-dom";
-import ReactPaginate from "react-paginate"
+import ReactPaginate from "react-paginate";
 
 import Navbar from "./Navbar";
 import useStyles from "../utils/stylesHome";
@@ -86,11 +86,11 @@ export default function Home({ changeMode }) {
         </Grid>
       );
     });
-  
-  const pageCount = Math.ceil(books.length / booksPerPage)  
-  const changePage = ({selected}) => {
-    setPageNumber(selected)
-  }
+
+  const pageCount = Math.ceil(books.length / booksPerPage);
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
 
   return (
     <React.Fragment>

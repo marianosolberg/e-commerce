@@ -6,8 +6,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 
-import ChildCareIcon from "@material-ui/icons/ChildCare";
-import MoodBadIcon from "@material-ui/icons/MoodBad";
 import StarHalfIcon from "@material-ui/icons/StarHalf";
 
 const StyledMenu = withStyles({
@@ -41,7 +39,7 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-export default function MenuCategorias() {
+export default function MenuCategorias({ categorias }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -70,24 +68,17 @@ export default function MenuCategorias() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <StyledMenuItem>
-          <ListItemIcon>
-            <MoodBadIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="Terror" />
-        </StyledMenuItem>
-        <StyledMenuItem>
-          <ListItemIcon>
-            <StarHalfIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="Biografías" />
-        </StyledMenuItem>
-        <StyledMenuItem>
-          <ListItemIcon>
-            <ChildCareIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="Infantiles" />
-        </StyledMenuItem>
+        {categorias &&
+          categorias.map((categoria, i) => {
+            return (
+              <StyledMenuItem key={i}>
+                <ListItemIcon>
+                  <StarHalfIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText primary={categoria.name} />
+              </StyledMenuItem>
+            );
+          })}
       </StyledMenu>
     </div>
   );
