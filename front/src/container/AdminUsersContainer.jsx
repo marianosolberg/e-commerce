@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import AdminUsers from '../components/AdminUsers'
+import { useDispatch, useSelector } from 'react-redux'
+import { setUsers } from '../state/users'
 
-export default function AdminUsersContainer() {
-    const [usuarios, setUsuarios] = useState([]) 
+
+export default function AdminUsersContainer({ changeMode}) {
+    const users = useSelector(state => state.users) 
+    const dispatch = useDispatch()
     
     useEffect(() => {
-        axios.get("/api/admin/users")
-        .then(({data}) => setUsuarios(data))
-    }, [usuarios])
+        dispatch(setUsers())
+    }, [])
 
 
     return (
-        <AdminUsers usuarios={usuarios}/>
+        <AdminUsers changeMode={changeMode} users={users}/>
     )
 }

@@ -33,6 +33,10 @@ export default function Navbar({ changeMode }) {
 
   console.log(isAdmin)
 
+  console.log(token)
+
+  console.log(nombreUsuario)
+  
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);

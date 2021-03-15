@@ -63,7 +63,11 @@ function App() {
                 <SingleCard changeMode={changeMode} id={match.params.id} />
               )}
             />
-            <Route exact path="/admin/users" component={AdminUsersContainer}/>
+            <Route
+              exact
+              path="/admin/users"
+              render={() => <AdminUsersContainer changeMode={changeMode} />}
+            />
           </Switch>
         </BrowserRouter>
 

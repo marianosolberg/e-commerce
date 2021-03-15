@@ -15,7 +15,6 @@ router.use("/register", registerRouter)
 router.use("/login", loginRouter)
 router.use("/categorias", categoriasRouter)
 router.use("/shop", shopRouter)
-//router.use("/user", userRouter)
 
 router.use("/admin", adminRouter)
 
