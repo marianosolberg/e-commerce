@@ -91,7 +91,11 @@ export default function Login({ handleSubmit, handleChange }) {
                 </Link>
               </Grid>
               <Grid item>
-                <Link to="/register" variant="body2" style={{ color: "inherit" }}>
+                <Link
+                  to="/register"
+                  variant="body2"
+                  style={{ color: "inherit" }}
+                >
                   No tenes una cuenta, Registrate
                 </Link>
               </Grid>
