@@ -63,6 +63,15 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  logo: {
+    paddingLeft: "3vh",
+    height: "8vh",
+    width: "9vh",
+    position: "absolute",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 }));
 
 export default useStyles;

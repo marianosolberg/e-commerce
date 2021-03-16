@@ -1,8 +1,10 @@
 const express = require('express');
-const checkJWT = require("../middlewareAuthJWT/jwt")
+const adminController = require('../controllers/admin');
 const router = express.Router();
-const adminController = require('../controllers/admin')
 
-router.post("/login", adminController.find)
+router.get("/users", adminController.findUsers)
+router.delete("/users/:id", adminController.deleteUser)
+router.put("/users/:id", adminController.update)
+
 
 module.exports = router

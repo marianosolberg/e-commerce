@@ -1,28 +1,19 @@
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const User = require("../models/User");
 
 const adminController = {
-    find(req, res){
-        User.findOne({email : req.body.email})
-        .then( async (user) => {
-            if(!user) {
-                return res.status(400).send("usuario no existente")
-            }
-
-            const valid = await user.validPassword(req.body.password)
-
-            if(!valid) {
-                return res.status(401).send("invalid credentials")
-            }
-
-            if(!user.isAdmin) {
-                return res.status(401).send("you do not have administrator privilege")
-            }
-
-            const token = jwt.sign({ _id: user._id }, "ebook")
-            return res.status(200).json({ token, user })
-
-        })
+    findUsers(req, res) {
+        User.find()
+        .then(users => res.send(users).status(200))
+        .catch(e => res.send(e).status(400))
+    },
+    deleteUser(req, res) {
+        User.findOneAndDelete({_id: req.params.id})
+        .then(res.sendStatus(200))
+        .catch(e => res.send(e))
+    }, 
+    update(req, res) {
+        User.findByIdAndUpdate( {_id: req.params.id}, req.body)
+        .then(user => res.send(user))
     }
 }
 

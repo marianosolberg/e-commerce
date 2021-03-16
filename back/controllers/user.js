@@ -19,3 +19,5 @@ const UserController = {
 }
 
 module.exports = UserController;
+
+//DEBERÍAMOS BORRAR ESTE CONTROLLER
