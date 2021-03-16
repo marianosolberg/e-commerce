@@ -3,7 +3,7 @@ import Home from "./components/Home";
 import FormRegisterContainer from "./container/FormRegisterContainer";
 import Shop from "./components/Shop";
 import SingleCard from "./components/SingleCard";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, useLocation } from "react-router-dom";
 import FormLoginContainer from "./container/FormLoginContainer";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -38,11 +38,13 @@ function App() {
     modo === "dark" ? setModo("light") : setModo("dark");
   };
 
+
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <BrowserRouter>
+        <BrowserRouter >
+        <Navbar changeMode={changeMode}/>
           <Switch>
             <Route
               exact
@@ -54,13 +56,13 @@ function App() {
             <Route
               exact
               path="/shop"
-              render={() => <Shop changeMode={changeMode} />}
+              render={() => <Shop />}
             />
             <Route
               exact
               path="/singlecard/:id"
               render={({ match }) => (
-                <SingleCard changeMode={changeMode} id={match.params.id} />
+                <SingleCard id={match.params.id} />
               )}
             />
 
@@ -69,7 +71,7 @@ function App() {
             <Route
               exact
               path="/admin/users"
-              render={() => <AdminUsersContainer changeMode={changeMode} />}
+              render={() => <AdminUsersContainer />}
             />
           </Switch>
         </BrowserRouter>

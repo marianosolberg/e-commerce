@@ -10,6 +10,11 @@ const UserController = {
         User.findByIdAndUpdate({_id: req.params.id}, req.body)
         .then(user => res.send(user).status(200))
         .catch( e => res.send(e).status(500))
+    },
+    delete(req, res){
+        User.deleteOne({_id: req.params.id})
+        .then(() => res.send(200))
+        .catch(e => res.send(e))
     }
 }
 

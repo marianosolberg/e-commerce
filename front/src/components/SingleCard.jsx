@@ -37,7 +37,7 @@ export default function SingleCard({ changeMode, id }) {
 
   return (
     <div className={classes.root}>
-      <Navbar changeMode={changeMode} />
+      {/* <Navbar changeMode={changeMode} /> */}
       <div style={{ marginTop: "50px" }}>
         <Paper className={classes.paper}>
           <Typography gutterBottom variant="h3" align="center">

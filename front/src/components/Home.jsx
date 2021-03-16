@@ -39,7 +39,7 @@ export default function Home({ changeMode }) {
     dispatch(setBooks());
   }, []);
 
-  let options = search.length > 0 ? search : books;
+  let options = (search.length > 0) ? search : books;
 
   const displayBooks = options
     .slice(pagesVisited, pagesVisited + booksPerPage)
@@ -88,7 +88,7 @@ export default function Home({ changeMode }) {
 
   return (
     <React.Fragment>
-      <Navbar changeMode={changeMode} />
+      {/* <Navbar changeMode={changeMode} /> */}
       <main className="color">
         <div className={classes.heroContent}>
           <Container maxWidth="sm">

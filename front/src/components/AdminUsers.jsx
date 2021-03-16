@@ -46,7 +46,7 @@ export default function AdminUsers({ changeMode }) {
 
   return (
     <div>
-      <Navbar changeMode={changeMode} />
+      {/* <Navbar changeMode={changeMode} /> */}
       <Grid item xs={12} md={6} style={{ paddingLeft: 20 }}>
         <Typography variant="h6" className={classes.title}>
           Users

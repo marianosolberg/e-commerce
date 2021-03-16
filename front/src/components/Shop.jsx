@@ -49,7 +49,7 @@ export default function Shop({ changeMode, id }) {
   console.log(carrito);
   return (
     <div className="color">
-      <Navbar changeMode={changeMode} />
+      {/* <Navbar changeMode={changeMode} /> */}
       <div style={{ marginTop: "50px" }}>
         <Paper className={classes.paper}>
           {carrito.map((libro) => (

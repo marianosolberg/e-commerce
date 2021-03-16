@@ -25,7 +25,7 @@ import useStyles from "../utils/stylesNavbar";
 import MenuCategorias from "../components/MenuCategorias";
 
 import Search from "./Search"; // importo el nuevo modulo.
-import { Route } from "react-router-dom"; // importo Route para renderizar el modulo.
+import { Route , useLocation} from "react-router-dom"; // importo Route para renderizar el modulo.
 
 import AdminMenu from "./AdminMenu";
 
@@ -143,9 +143,11 @@ export default function Navbar({ changeMode }) {
       .then((res) => res.data)
       .then((data) => setCategorias(data));
   }, []);
-
+  const location = useLocation()
+  console.log("ALGO PARA QUE SEAS VISIBLE!", location)
   return (
-    <div className={classes.grow}>
+    <>
+    {(location.pathname === "/login" || location.pathname === "/register") ? null : (<div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -251,6 +253,7 @@ export default function Navbar({ changeMode }) {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-    </div>
+    </div>)}
+    </>
   );
 }
