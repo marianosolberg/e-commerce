@@ -112,11 +112,19 @@ export default function Login({ handleSubmit, handleChange }) {
                   </Link>
                 </Grid>
               </Grid>
-              <Box mt={5}>{/*  <Copyright /> */}</Box>
-            </form>
-          </div>
-        </Grid>
-      </Grid>
-    </div>
+
+              <Grid item>
+                <Link
+                  to="/register"
+                  variant="body2"
+                  style={{ color: "inherit" }}
+                >
+                  No tenes una cuenta, Registrate
+                </Link>
+              </Grid>
+            </Grid>
+            <Box mt={5}>{/*  <Copyright /> */}</Box>
+          </form>
+        </div>
   );
 }
