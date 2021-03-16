@@ -1,17 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setSearch } from "../state/search";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  InputBase,
-  Badge,
-  MenuItem,
-  Menu,
-  IconButton,
-  Avatar,
-} from "@material-ui/core";
+import { InputBase } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 
 import useStyles from "../utils/stylesHome";
@@ -34,10 +24,15 @@ const Search = ({ history }) => {
   };
 
   return (
-    <form onSubmit={searchHandler}>
-      <div className={classes.searchIcon}>
-        <SearchIcon />
-      </div>
+    <form
+      onSubmit={searchHandler}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <SearchIcon />
       <InputBase
         placeholder="Busqueda"
         onChange={(e) => setKeyword(e.target.value)}

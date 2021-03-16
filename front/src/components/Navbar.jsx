@@ -127,7 +127,7 @@ export default function Navbar({ changeMode }) {
           color="inherit"
         >
           {nombreUsuario ? (
-            <Avatar alt="Remy Sharp" src="jesu.jpeg" />
+            <Avatar alt="Remy Sharp" src="cata.jpeg" />
           ) : (
             <AccountCircle />
           )}
@@ -230,7 +230,7 @@ export default function Navbar({ changeMode }) {
               color="inherit"
             >
               {nombreUsuario ? (
-                <Avatar alt="Remy Sharp" src="jesu.jpeg" />
+                <Avatar alt="Remy Sharp" src="cata.jpeg" />
               ) : (
                 <AccountCircle />
               )}

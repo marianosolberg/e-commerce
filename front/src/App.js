@@ -7,7 +7,6 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import FormLoginContainer from "./container/FormLoginContainer";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
-import Search from "./components/Search";
 
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme, CssBaseline } from "@material-ui/core";

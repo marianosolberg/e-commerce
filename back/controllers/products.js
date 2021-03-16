@@ -5,7 +5,7 @@ const ProductController = {
     const { titulo } = req.params;
     Product.find({ titulo: { $regex: `.*${titulo}`, $options: "i" } })
       .populate("categoria")
-      .then((product) => console.log(product))
+      .then((product) => res.send(product))
       .catch((e) => res.send(e));
   },
   findOne(req, res) {
