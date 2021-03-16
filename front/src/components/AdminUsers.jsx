@@ -7,36 +7,22 @@ import {
   ListItemAvatar,
   ListItemSecondaryAction,
   ListItemText,
-  makeStyles,
   Typography,
 } from "@material-ui/core";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "./Navbar";
 
-import GroupAddSharpIcon from "@material-ui/icons/GroupAddSharp";
-import FolderIcon from "@material-ui/icons/Folder";
-import DeleteIcon from "@material-ui/icons/Delete";
+import { Folder, GroupAddSharp, Delete } from "@material-ui/icons";
+
 import axios from "axios";
 import { setUsers } from "../state/users";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    maxWidth: 752,
-  },
-  demo: {
-    backgroundColor: theme.palette.background.paper,
-  },
-  title: {
-    margin: theme.spacing(4, 0, 2),
-  },
-}));
-
+import { useStyles } from "../utils/stylesAdminUsers";
 
 export default function AdminUsers({ changeMode }) {
   const users = useSelector((state) => state.users);
   const dispatch = useDispatch();
+  const isAdmin = localStorage.getItem("isAdmin");
 
   useEffect(() => {
     dispatch(setUsers());
@@ -50,9 +36,12 @@ export default function AdminUsers({ changeMode }) {
   };
 
   const handleAdmin = (id) => {
-    axios.put(`/api/admin/users/${id}`, { isAdmin: true });
-
-    // .then(user => user.data)
+    if (isAdmin == "false") {
+      return axios.put(`/api/admin/users/${id}`, { isAdmin: true });
+    }
+    if (isAdmin == "true") {
+      return axios.put(`/api/admin/users/${id}`, { isAdmin: false });
+    }
   };
 
   return (
@@ -68,7 +57,7 @@ export default function AdminUsers({ changeMode }) {
               <ListItem key={i}>
                 <ListItemAvatar>
                   <Avatar>
-                    <FolderIcon />
+                    <Folder />
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText primary={usuario.email} />
@@ -77,14 +66,14 @@ export default function AdminUsers({ changeMode }) {
                   onClick={() => handleAdmin(usuario._id)}
                 >
                   <IconButton edge="end" aria-label="add-admin">
-                    <GroupAddSharpIcon />
+                    <GroupAddSharp />
                   </IconButton>
                 </ListItemSecondaryAction>
                 <ListItemSecondaryAction
                   onClick={() => handleDelete(usuario._id)}
                 >
                   <IconButton edge="end" aria-label="delete">
-                    <DeleteIcon />
+                    <Delete />
                   </IconButton>
                 </ListItemSecondaryAction>
               </ListItem>
