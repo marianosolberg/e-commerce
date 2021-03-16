@@ -64,8 +64,8 @@ function App() {
               )}
             />
 
-            <Route path='/search/:keyword' component= {Home}/> 
-            
+            <Route path="/search/:keyword" component={Home} />
+
             <Route
               exact
               path="/admin/users"
