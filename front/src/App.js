@@ -15,6 +15,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import lightBlue from "@material-ui/core/colors/lightBlue";
 import blueGrey from "@material-ui/core/colors/blueGrey";
 import AdminUsersContainer from "./container/AdminUsersContainer";
+import AdminCategoriasContainer from "./container/AdminCategoriasContainer";
 
 function App() {
   const [modo, setModo] = useState("dark");
@@ -43,6 +44,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <BrowserRouter>
+          <Navbar changeMode={changeMode} />
           <Switch>
             <Route
               exact
@@ -51,11 +53,7 @@ function App() {
             />
             <Route exact path="/login" component={FormLoginContainer} />
             <Route exact path="/register" component={FormRegisterContainer} />
-            <Route
-              exact
-              path="/shop"
-              render={() => <Shop changeMode={changeMode} />}
-            />
+            <Route exact path="/shop" component={Shop} />
             <Route
               exact
               path="/singlecard/:id"
@@ -63,13 +61,12 @@ function App() {
                 <SingleCard changeMode={changeMode} id={match.params.id} />
               )}
             />
-
             <Route path="/search/:keyword" component={Home} />
-
+            <Route exact path="/admin/users" component={AdminUsersContainer} />
             <Route
               exact
-              path="/admin/users"
-              render={() => <AdminUsersContainer changeMode={changeMode} />}
+              path="/admin/categorias"
+              component={AdminCategoriasContainer}
             />
           </Switch>
         </BrowserRouter>

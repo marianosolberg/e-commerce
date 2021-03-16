@@ -6,7 +6,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 
-import BuildIcon from "@material-ui/icons/Build";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import BookmarksIcon from "@material-ui/icons/Bookmarks";
 import { useHistory } from "react-router";
@@ -43,7 +42,7 @@ const StyledMenuItem = withStyles((theme) => ({
 }))(MenuItem);
 
 export default function AdminMenu() {
-  const history = useHistory()
+  const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -55,8 +54,12 @@ export default function AdminMenu() {
   };
 
   const handleUsers = () => {
-    history.push("/admin/users")
-  }
+    history.push("/admin/users");
+  };
+
+  const handleCategorias = () => {
+    history.push("/admin/categorias");
+  };
 
   return (
     <div>
@@ -88,11 +91,11 @@ export default function AdminMenu() {
           </ListItemIcon>
           <ListItemText primary="Agregar/quitar productos" />
         </StyledMenuItem>
-        <StyledMenuItem>
+        <StyledMenuItem onClick={handleCategorias}>
           <ListItemIcon>
-            <BuildIcon fontSize="small" />
+            <BookmarksIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText primary="Modificar páginas" />
+          <ListItemText primary="Agregar/quitar categorías" />
         </StyledMenuItem>
       </StyledMenu>
     </div>

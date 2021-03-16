@@ -19,14 +19,8 @@ import axios from "axios";
 import { setUsers } from "../state/users";
 import { useStyles } from "../utils/stylesAdminUsers";
 
-export default function AdminUsers({ changeMode }) {
-  const users = useSelector((state) => state.users);
+export default function AdminUsers({ users }) {
   const dispatch = useDispatch();
-  const isAdmin = localStorage.getItem("isAdmin");
-
-  useEffect(() => {
-    dispatch(setUsers());
-  }, []);
 
   const classes = useStyles();
 
@@ -36,17 +30,11 @@ export default function AdminUsers({ changeMode }) {
   };
 
   const handleAdmin = (id) => {
-    if (isAdmin == "false") {
-      return axios.put(`/api/admin/users/${id}`, { isAdmin: true });
-    }
-    if (isAdmin == "true") {
-      return axios.put(`/api/admin/users/${id}`, { isAdmin: false });
-    }
+    return axios.put(`/api/admin/users/${id}`, { isAdmin: true });
   };
 
   return (
     <div>
-      <Navbar changeMode={changeMode} />
       <Grid item xs={12} md={6} style={{ paddingLeft: 20 }}>
         <Typography variant="h6" className={classes.title}>
           Users

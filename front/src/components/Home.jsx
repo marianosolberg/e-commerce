@@ -18,7 +18,7 @@ import {
   Grid,
 } from "@material-ui/core";
 
-export default function Home({ changeMode }) {
+export default function Home() {
   const classes = useStyles();
 
   const history = useHistory();
@@ -32,7 +32,6 @@ export default function Home({ changeMode }) {
   const pagesVisited = pageNumber * booksPerPage;
 
   const handleClick = (id) => {
-    // dispatch(setBook(id));  604ac406ed088172721807d9
     return history.push(`/SingleCard/${id}`);
   };
 
@@ -74,14 +73,6 @@ export default function Home({ changeMode }) {
                 color="primary"
                 onClick={() => history.push("/shop")}
               >
-                COMPRAR
-              </Button>
-
-              <Button
-                size="small"
-                color="primary"
-                onClick={() => history.push("/shop")}
-              >
                 Agregar al carrito
               </Button>
             </CardActions>
@@ -97,7 +88,6 @@ export default function Home({ changeMode }) {
 
   return (
     <React.Fragment>
-      <Navbar changeMode={changeMode} />
       <main className="color">
         <div className={classes.heroContent}>
           <Container maxWidth="sm">

@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Shop({ changeMode }) {
+export default function Shop() {
   const libro = useSelector((state) => state.book);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -47,7 +47,6 @@ export default function Shop({ changeMode }) {
 
   return (
     <div className="color">
-      <Navbar changeMode={changeMode} />
       <div style={{ marginTop: "50px" }}>
         <Paper className={classes.paper}>
           <Grid container>

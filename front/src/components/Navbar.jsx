@@ -25,7 +25,7 @@ import useStyles from "../utils/stylesNavbar";
 import MenuCategorias from "../components/MenuCategorias";
 
 import Search from "./Search"; // importo el nuevo modulo.
-import { Route } from "react-router-dom"; // importo Route para renderizar el modulo.
+import { Route, useLocation } from "react-router-dom"; // importo Route para renderizar el modulo.
 
 import AdminMenu from "./AdminMenu";
 
@@ -143,38 +143,42 @@ export default function Navbar({ changeMode }) {
       .then((res) => res.data)
       .then((data) => setCategorias(data));
   }, []);
-
+  const location = useLocation();
+  console.log("ALGO PARA QUE SEAS VISIBLE!", location);
   return (
-    <div className={classes.grow}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <img src="logo.png" alt="logo" className={classes.logo} />
-          </IconButton>
+    <>
+      {location.pathname === "/login" ||
+      location.pathname === "/register" ? null : (
+        <div className={classes.grow}>
+          <AppBar position="static">
+            <Toolbar>
+              <IconButton
+                edge="start"
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="open drawer"
+              >
+                <img src="logo.png" alt="logo" className={classes.logo} />
+              </IconButton>
 
-          <Typography
-            className={classes.title}
-            variant="h6"
-            noWrap
-            color="initial"
-          >
-            <IconButton
-              aria-label="go to home"
-              color="inherit"
-              style={{ padding: 20 }}
-              onClick={() => history.push("/")}
-            >
-              e-Books
-            </IconButton>
-          </Typography>
+              <Typography
+                className={classes.title}
+                variant="h6"
+                noWrap
+                color="initial"
+              >
+                <IconButton
+                  aria-label="go to home"
+                  color="inherit"
+                  style={{ padding: 20 }}
+                  onClick={() => history.push("/")}
+                >
+                  e-Books
+                </IconButton>
+              </Typography>
 
-          <div className={classes.search}>
-            {/* <div className={classes.searchIcon}>
+              <div className={classes.search}>
+                {/* <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
             <InputBase
@@ -186,71 +190,73 @@ export default function Navbar({ changeMode }) {
               inputProps={{ "aria-label": "search" }}
               name="titulo"
             /> */}
-            <Route render={({ history }) => <Search history={history} />} />
-          </div>
-          <MenuCategorias categorias={categorias} />
-          <div className={classes.grow} />
-          {isAdmin == "true" ? <AdminMenu /> : null}
+                <Route render={({ history }) => <Search history={history} />} />
+              </div>
+              <MenuCategorias categorias={categorias} />
+              <div className={classes.grow} />
+              {isAdmin == "true" ? <AdminMenu /> : null}
 
-          <div className={classes.sectionDesktop}>
-            <Typography
-              className={classes.title}
-              variant="h4"
-              noWrap
-              style={{ padding: 10 }}
-              color="inherit"
-            >
-              {nombreUsuario}
-            </Typography>
-            <IconButton
-              aria-label="show  new notifications"
-              color="inherit"
-              style={{ padding: 20 }}
-              onClick={changeMode}
-            >
-              <Badge badgeContent={0} color="secondary"></Badge>
-              <Brightness4Icon />
-            </IconButton>
-            <IconButton
-              aria-label="show  new notifications"
-              color="inherit"
-              style={{ padding: 20 }}
-              onClick={() => history.push("/shop")}
-            >
-              <Badge badgeContent={0} color="secondary"></Badge>
-              <ShoppingCartIcon />
-            </IconButton>
+              <div className={classes.sectionDesktop}>
+                <Typography
+                  className={classes.title}
+                  variant="h4"
+                  noWrap
+                  style={{ padding: 10 }}
+                  color="inherit"
+                >
+                  {nombreUsuario}
+                </Typography>
+                <IconButton
+                  aria-label="show  new notifications"
+                  color="inherit"
+                  style={{ padding: 20 }}
+                  onClick={changeMode}
+                >
+                  <Badge badgeContent={0} color="secondary"></Badge>
+                  <Brightness4Icon />
+                </IconButton>
+                <IconButton
+                  aria-label="show  new notifications"
+                  color="inherit"
+                  style={{ padding: 20 }}
+                  onClick={() => history.push("/shop")}
+                >
+                  <Badge badgeContent={0} color="secondary"></Badge>
+                  <ShoppingCartIcon />
+                </IconButton>
 
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              {nombreUsuario ? (
-                <Avatar alt="Remy Sharp" src="cata.jpeg" />
-              ) : (
-                <AccountCircle />
-              )}
-            </IconButton>
-          </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
-    </div>
+                <IconButton
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="inherit"
+                >
+                  {nombreUsuario ? (
+                    <Avatar alt="Remy Sharp" src="cata.jpeg" />
+                  ) : (
+                    <AccountCircle />
+                  )}
+                </IconButton>
+              </div>
+              <div className={classes.sectionMobile}>
+                <IconButton
+                  aria-label="show more"
+                  aria-controls={mobileMenuId}
+                  aria-haspopup="true"
+                  onClick={handleMobileMenuOpen}
+                  color="inherit"
+                >
+                  <MoreIcon />
+                </IconButton>
+              </div>
+            </Toolbar>
+          </AppBar>
+          {renderMobileMenu}
+          {renderMenu}
+        </div>
+      )}
+    </>
   );
 }

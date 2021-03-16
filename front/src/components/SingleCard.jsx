@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Navbar from "./Navbar";
+import { Link } from "react-router-dom";
 import { setBook } from "../state/book";
-import { Grid, Paper, Typography, ButtonBase, Link } from "@material-ui/core";
+import { Grid, Paper, Typography, ButtonBase } from "@material-ui/core";
 import useStyles from "../utils/stylesSIngleCard";
 
-export default function SingleCard({ changeMode, id }) {
+export default function SingleCard({ id }) {
   console.log(id);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -18,7 +18,6 @@ export default function SingleCard({ changeMode, id }) {
 
   return (
     <div className={classes.root}>
-      <Navbar changeMode={changeMode} />
       <div style={{ marginTop: "50px" }}>
         <Paper className={classes.paper}>
           <Typography gutterBottom variant="h3" align="center">
@@ -44,7 +43,7 @@ export default function SingleCard({ changeMode, id }) {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Link href="/shop">
+                  <Link to="/shop" style={{ color: "#0B73D4" }}>
                     <Typography variant="body2" style={{ cursor: "pointer" }}>
                       Comprar
                     </Typography>
