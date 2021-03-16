@@ -46,14 +46,14 @@ export default function Shop({ changeMode, id }) {
     // dispatch(setBook(id));
     setCarrito(JSON.parse(localStorage.getItem("book")));
   }, []);
-  console.log(carrito);
+
   return (
     <div className="color">
       {/* <Navbar changeMode={changeMode} /> */}
       <div style={{ marginTop: "50px" }}>
         <Paper className={classes.paper}>
           {carrito.map((libro) => (
-            <Grid container>
+            <Grid container key={libro._id}>
               <Grid container style={{ width: 500 }} justify="space-around">
                 <ButtonBase className={classes.image}>
                   <img

@@ -15,10 +15,16 @@ const ProductController = {
       .catch((e) => res.send(e));
   },
   findAll(req, res) {
-    Product.find()
-      .populate("categoria")
-      .then((products) => res.send(products))
-      .catch((e) => res.send(e));
+    if(req.query.categoria){
+      Product.find({ categoria: req.query.categoria}).populate("categoria")
+      .then((product) => res.send(product))
+      .catch((e) => res.send(e));  
+    }else{
+      Product.find()
+        .populate("categoria")
+        .then((products) => res.send(products))
+        .catch((e) => res.send(e));
+    }
   },
   create(req, res) {
     Product.create(req.body)

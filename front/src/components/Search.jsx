@@ -16,9 +16,11 @@ const Search = ({ history }) => {
 
     if (keyword.trim()) {
       dispatch(setSearch(keyword));
+      setKeyword("")
       history.push(`/search/${keyword}`);
     } else {
       dispatch(setSearch(keyword));
+      setKeyword("")
       history.push("/");
     }
   };
@@ -42,6 +44,7 @@ const Search = ({ history }) => {
         }}
         inputProps={{ "aria-label": "search" }}
         name="titulo"
+        value={keyword}
       />
     </form>
   );
