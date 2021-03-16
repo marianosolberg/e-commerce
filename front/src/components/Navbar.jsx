@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-
+import {setSearch} from '../state/search';
+import {useDispatch} from 'react-redux';
 import {
   AppBar,
   Toolbar,
@@ -34,11 +35,11 @@ export default function Navbar({ changeMode }) {
   const nombreUsuario = localStorage.getItem("user");
   const isAdmin = localStorage.getItem("isAdmin");
 
-  console.log(isAdmin);
+  // console.log(isAdmin);
 
-  console.log(token);
+  // console.log(token);
 
-  console.log(nombreUsuario);
+  // console.log(nombreUsuario);
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -144,7 +145,12 @@ export default function Navbar({ changeMode }) {
       .then((data) => setCategorias(data));
   }, []);
   const location = useLocation()
-  console.log("ALGO PARA QUE SEAS VISIBLE!", location)
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    dispatch(setSearch())
+    return history.push("/")
+  }
+
   return (
     <>
     {(location.pathname === "/login" || location.pathname === "/register") ? null : (<div className={classes.grow}>
@@ -169,7 +175,7 @@ export default function Navbar({ changeMode }) {
               aria-label="go to home"
               color="inherit"
               style={{ padding: 20 }}
-              onClick={() => history.push("/")}
+              onClick={() => handleClick()}
             >
               e-Books
             </IconButton>

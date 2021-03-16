@@ -67,6 +67,7 @@ function App() {
             />
 
             <Route path="/search/:keyword" component={Home} />
+            <Route path="/search/category/:keyword" component={Home} />
 
             <Route
               exact
