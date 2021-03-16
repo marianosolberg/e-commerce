@@ -1,11 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import {
   Avatar,
   Button,
   CssBaseline,
   TextField,
-  Link,
   Grid,
   Typography,
   Container,
@@ -92,8 +92,17 @@ export default function Register({ handleChange, handleSubmit }) {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/login" variant="body2">
-                Ya tenes cuenta , logueate
+              <Link
+                to="/"
+                variant="body2"
+                style={{ paddingRight: 125, color: "inherit" }}
+              >
+                Ingresar sin registrarme
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link to="/login" variant="body2" style={{ color: "inherit" }}>
+                Ya tenes cuenta, logueate
               </Link>
             </Grid>
           </Grid>

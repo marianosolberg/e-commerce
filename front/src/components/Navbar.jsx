@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 import {
@@ -21,20 +22,32 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
 
 import useStyles from "../utils/stylesNavbar";
+import MenuCategorias from "../components/MenuCategorias";
 
+<<<<<<< HEAD
 import Search from './Search' // importo el nuevo modulo.
 import { Route } from 'react-router-dom'// importo Route para renderizar el modulo.
 
 import MenuCategorias from "./MenuCategorias";
+=======
+>>>>>>> 306805f8d48c8b7d5bb5a2568275031e8f05ba78
 import AdminMenu from "./AdminMenu";
 
 export default function Navbar({ changeMode }) {
   const token = localStorage.getItem("token");
   const nombreUsuario = localStorage.getItem("user");
+  const isAdmin = localStorage.getItem("isAdmin");
 
+  console.log(isAdmin)
+
+  console.log(token)
+
+  console.log(nombreUsuario)
+  
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [categorias, setCategorias] = useState([]);
 
   const history = useHistory();
   const isMenuOpen = Boolean(anchorEl);
@@ -67,6 +80,7 @@ export default function Navbar({ changeMode }) {
     if (nombreUsuario) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
+      localStorage.removeItem("isAdmin")
       history.push("/");
     }
   };
@@ -127,6 +141,13 @@ export default function Navbar({ changeMode }) {
     </Menu>
   );
 
+  useEffect(() => {
+    axios
+      .get("/api/categorias")
+      .then((res) => res.data)
+      .then((data) => setCategorias(data));
+  }, []);
+
   return (
     <div className={classes.grow}>
       <AppBar position="static">
@@ -137,7 +158,7 @@ export default function Navbar({ changeMode }) {
             color="inherit"
             aria-label="open drawer"
           >
-            <MenuIcon />
+            <img src="logo.png" alt="logo" className={classes.logo} />
           </IconButton>
 
           <Typography
@@ -172,11 +193,16 @@ export default function Navbar({ changeMode }) {
             /> */}
             <Route render={({ history })=> <Search history={history} />} /> 
           </div>
+<<<<<<< HEAD
 
 
           <MenuCategorias />
+=======
+          <MenuCategorias categorias={categorias} />
+>>>>>>> 306805f8d48c8b7d5bb5a2568275031e8f05ba78
           <div className={classes.grow} />
-          <AdminMenu />
+          { isAdmin == "true" ? <AdminMenu /> : null}
+          
           <div className={classes.sectionDesktop}>
             <Typography
               className={classes.title}

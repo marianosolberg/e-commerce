@@ -1,6 +1,7 @@
-const Product = require('../models/Product')
+const Product = require("../models/Product");
 
 const ProductController = {
+<<<<<<< HEAD
     find(req,res){
         const { titulo } = req.params
     Product.find({titulo: {$regex: `.*${titulo}`, $options: 'i'} }).populate('categoria')
@@ -38,5 +39,41 @@ const ProductController = {
         res.sendStatus(200)
     }
 }
+=======
+  findOne(req, res) {
+    Product.findById({ _id: req.params.id })
+      .populate("categoria")
+      .then((product) => res.send(product))
+      .catch((e) => res.send(e));
+  },
+  findAll(req, res) {
+    Product.find()
+      .populate("categoria")
+      .then((products) => res.send(products))
+      .catch((e) => res.send(e));
+  },
+  create(req, res) {
+    Product.create(req.body)
+      .then((product) => {
+        console.log("PRODUCTO CREADO");
+        return res.send(product);
+      })
+      .catch((e) => {
+        console.log("producto no creado");
+        res.send(e);
+      });
+  },
+  update(req, res) {
+    Product.findByIdAndUpdate({ _id: req.params.id }, req.body)
+      .populate("categoria")
+      .then((product) => res.send(product))
+      .catch((e) => res.send(e));
+  },
+  delete(req, res) {
+    console.log("delet");
+    res.sendStatus(200);
+  },
+};
+>>>>>>> 306805f8d48c8b7d5bb5a2568275031e8f05ba78
 
 module.exports = ProductController;

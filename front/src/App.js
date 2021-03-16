@@ -14,6 +14,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 import lightBlue from "@material-ui/core/colors/lightBlue";
 import blueGrey from "@material-ui/core/colors/blueGrey";
+import AdminUsersContainer from "./container/AdminUsersContainer";
 
 function App() {
   const [modo, setModo] = useState("dark");
@@ -65,6 +66,11 @@ function App() {
 
             <Route path='/search/:keyword' component= {Home}/> 
             
+            <Route
+              exact
+              path="/admin/users"
+              render={() => <AdminUsersContainer changeMode={changeMode} />}
+            />
           </Switch>
         </BrowserRouter>
 

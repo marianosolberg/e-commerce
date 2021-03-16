@@ -6,7 +6,6 @@ import {
   TextField,
   FormControlLabel,
   Checkbox,
-  Link,
   Paper,
   Grid,
   Box,
@@ -17,6 +16,7 @@ import {
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 import useStyles from "../utils/stylesLogin";
+import { Link } from "react-router-dom";
 
 /* function Copyright() {
   return (
@@ -86,12 +86,12 @@ export default function Login({ handleSubmit, handleChange }) {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  Olvidaste tu contraseña?
+                <Link to="/" variant="body2" style={{ color: "inherit" }}>
+                  Ingresar sin loguearme
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/register" variant="body2">
+                <Link to="/register" variant="body2" style={{ color: "inherit" }}>
                   No tenes una cuenta, Registrate
                 </Link>
               </Grid>
