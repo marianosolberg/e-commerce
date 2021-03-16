@@ -3,7 +3,7 @@ const Product = require('../models/Product')
 const ProductController = {
     find(req,res){
         const { titulo } = req.params
-    Product.find({$text: {$search: titulo} }).populate('categoria')
+    Product.find({titulo: {$regex: `.*${titulo}`, $options: 'i'} }).populate('categoria')
         .then(product => console.log(product))
         .catch((e) => res.send(e))
     },
