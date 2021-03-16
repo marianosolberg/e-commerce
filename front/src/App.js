@@ -63,6 +63,9 @@ function App() {
                 <SingleCard changeMode={changeMode} id={match.params.id} />
               )}
             />
+
+            <Route path='/search/:keyword' component= {Home}/> 
+            
             <Route
               exact
               path="/admin/users"

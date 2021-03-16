@@ -24,6 +24,7 @@ export default function Home({ changeMode }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books);
+  const search = useSelector ((state)=> state.search);
 
   const [pageNumber, setPageNumber] = useState(0);
 
@@ -38,6 +39,8 @@ export default function Home({ changeMode }) {
   useEffect(() => {
     dispatch(setBooks());
   }, []);
+
+//  let options = (search) ?  search : books
 
   const displayBooks = books
     .slice(pagesVisited, pagesVisited + booksPerPage)
