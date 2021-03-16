@@ -14,4 +14,5 @@ router.use("/categorias", categoriasRouter)
 router.use("/shop", shopRouter)
 router.use("/user", userRouter)
 
+
 module.exports = router

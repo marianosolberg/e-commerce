@@ -22,6 +22,9 @@ import Brightness4Icon from "@material-ui/icons/Brightness4";
 
 import useStyles from "../utils/stylesNavbar";
 
+import Search from './Search' // importo el nuevo modulo.
+import { Route } from 'react-router-dom'// importo Route para renderizar el modulo.
+
 import MenuCategorias from "./MenuCategorias";
 import AdminMenu from "./AdminMenu";
 
@@ -153,8 +156,9 @@ export default function Navbar({ changeMode }) {
             </IconButton>
           </Typography>
 
+
           <div className={classes.search}>
-            <div className={classes.searchIcon}>
+            {/* <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
             <InputBase
@@ -165,8 +169,11 @@ export default function Navbar({ changeMode }) {
               }}
               inputProps={{ "aria-label": "search" }}
               name="titulo"
-            />
+            /> */}
+            <Route render={({ history })=> <Search history={history} />} /> 
           </div>
+
+
           <MenuCategorias />
           <div className={classes.grow} />
           <AdminMenu />

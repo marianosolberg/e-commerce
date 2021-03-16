@@ -62,6 +62,9 @@ function App() {
                 <SingleCard changeMode={changeMode} id={match.params.id} />
               )}
             />
+
+            <Route path='/search/:keyword' component= {Home}/> 
+            
           </Switch>
         </BrowserRouter>
 
