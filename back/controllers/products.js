@@ -1,6 +1,13 @@
 const Product = require("../models/Product");
 
 const ProductController = {
+  find(req, res) {
+    const { titulo } = req.params;
+    Product.find({ titulo: { $regex: `.*${titulo}`, $options: "i" } })
+      .populate("categoria")
+      .then((product) => res.send(product))
+      .catch((e) => res.send(e));
+  },
   findOne(req, res) {
     Product.findById({ _id: req.params.id })
       .populate("categoria")

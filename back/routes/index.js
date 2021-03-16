@@ -1,10 +1,13 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const productsRouter = require('./productsRouter')
-const registerRouter = require('./registerRouter')
-const loginRouter = require('./loginRouter')
-const categoriasRouter = require('./categoriasRouter')
-const shopRouter = require('./shopRouter')
+const productsRouter = require("./productsRouter");
+const registerRouter = require("./registerRouter");
+const loginRouter = require("./loginRouter");
+const categoriasRouter = require("./categoriasRouter");
+const shopRouter = require("./shopRouter");
+// const userRouter = require("./userRouter");
+const carritoRouter = require("./carritoRouter");
+
 const adminRouter = require('./adminRouter')
 
 router.use("/products", productsRouter)
@@ -15,4 +18,4 @@ router.use("/shop", shopRouter)
 router.use("/admin", adminRouter)
 
 
-module.exports = router
+module.exports = router;

@@ -14,6 +14,6 @@ export default function AdminUsersContainer({ changeMode}) {
 
 
     return (
-        <AdminUsers changeMode={changeMode} users={users}/>
+        <AdminUsers users={users}/>
     )
 }

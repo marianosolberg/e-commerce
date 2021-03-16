@@ -4,7 +4,9 @@ import { logger } from "redux-logger";
 import { booksReducer } from "./books";
 import { bookReducer } from "./book";
 import { userReducer } from "./user";
-import { usersReducer } from "./users";
+import { carritoReducer } from "./carrito";
+import { comprarReducer } from "./comprar";
+import { searchReducer } from "./search";
 
 const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
@@ -12,7 +14,9 @@ const store = configureStore({
     user: userReducer,
     books: booksReducer,
     book: bookReducer,
-    users: usersReducer,
+    carrito: carritoReducer,
+    comprar: comprarReducer,
+    search: searchReducer
   },
 });
 

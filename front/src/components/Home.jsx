@@ -24,6 +24,7 @@ export default function Home({ changeMode }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books);
+  const search = useSelector((state) => state.search);
 
   const [pageNumber, setPageNumber] = useState(0);
 
@@ -31,7 +32,6 @@ export default function Home({ changeMode }) {
   const pagesVisited = pageNumber * booksPerPage;
 
   const handleClick = (id) => {
-    // dispatch(setBook(id));  604ac406ed088172721807d9
     return history.push(`/SingleCard/${id}`);
   };
 
@@ -39,7 +39,9 @@ export default function Home({ changeMode }) {
     dispatch(setBooks());
   }, []);
 
-  const displayBooks = books
+  let options = (search.length > 0) ? search : books;
+
+  const displayBooks = options
     .slice(pagesVisited, pagesVisited + booksPerPage)
     .map((card) => {
       return (
@@ -71,14 +73,6 @@ export default function Home({ changeMode }) {
                 color="primary"
                 onClick={() => history.push("/shop")}
               >
-                COMPRAR
-              </Button>
-
-              <Button
-                size="small"
-                color="primary"
-                onClick={() => history.push("/shop")}
-              >
                 Agregar al carrito
               </Button>
             </CardActions>
@@ -94,7 +88,7 @@ export default function Home({ changeMode }) {
 
   return (
     <React.Fragment>
-      <Navbar changeMode={changeMode} />
+      {/* <Navbar changeMode={changeMode} /> */}
       <main className="color">
         <div className={classes.heroContent}>
           <Container maxWidth="sm">

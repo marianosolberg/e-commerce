@@ -24,6 +24,9 @@ import Brightness4Icon from "@material-ui/icons/Brightness4";
 import useStyles from "../utils/stylesNavbar";
 import MenuCategorias from "../components/MenuCategorias";
 
+import Search from "./Search"; // importo el nuevo modulo.
+import { Route , useLocation} from "react-router-dom"; // importo Route para renderizar el modulo.
+
 import AdminMenu from "./AdminMenu";
 
 export default function Navbar({ changeMode }) {
@@ -31,12 +34,12 @@ export default function Navbar({ changeMode }) {
   const nombreUsuario = localStorage.getItem("user");
   const isAdmin = localStorage.getItem("isAdmin");
 
-  console.log(isAdmin)
+  console.log(isAdmin);
 
-  console.log(token)
+  console.log(token);
 
-  console.log(nombreUsuario)
-  
+  console.log(nombreUsuario);
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -73,7 +76,7 @@ export default function Navbar({ changeMode }) {
     if (nombreUsuario) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-      localStorage.removeItem("isAdmin")
+      localStorage.removeItem("isAdmin");
       history.push("/");
     }
   };
@@ -124,7 +127,7 @@ export default function Navbar({ changeMode }) {
           color="inherit"
         >
           {nombreUsuario ? (
-            <Avatar alt="Remy Sharp" src="jesu.jpeg" />
+            <Avatar alt="Remy Sharp" src="cata.jpeg" />
           ) : (
             <AccountCircle />
           )}
@@ -140,9 +143,11 @@ export default function Navbar({ changeMode }) {
       .then((res) => res.data)
       .then((data) => setCategorias(data));
   }, []);
-
+  const location = useLocation()
+  console.log("ALGO PARA QUE SEAS VISIBLE!", location)
   return (
-    <div className={classes.grow}>
+    <>
+    {(location.pathname === "/login" || location.pathname === "/register") ? null : (<div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -171,7 +176,7 @@ export default function Navbar({ changeMode }) {
           </Typography>
 
           <div className={classes.search}>
-            <div className={classes.searchIcon}>
+            {/* <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
             <InputBase
@@ -182,12 +187,13 @@ export default function Navbar({ changeMode }) {
               }}
               inputProps={{ "aria-label": "search" }}
               name="titulo"
-            />
+            /> */}
+            <Route render={({ history }) => <Search history={history} />} />
           </div>
           <MenuCategorias categorias={categorias} />
           <div className={classes.grow} />
-          { isAdmin == "true" ? <AdminMenu /> : null}
-          
+          {isAdmin == "true" ? <AdminMenu /> : null}
+
           <div className={classes.sectionDesktop}>
             <Typography
               className={classes.title}
@@ -226,7 +232,7 @@ export default function Navbar({ changeMode }) {
               color="inherit"
             >
               {nombreUsuario ? (
-                <Avatar alt="Remy Sharp" src="jesu.jpeg" />
+                <Avatar alt="Remy Sharp" src="cata.jpeg" />
               ) : (
                 <AccountCircle />
               )}
@@ -247,6 +253,7 @@ export default function Navbar({ changeMode }) {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-    </div>
+    </div>)}
+    </>
   );
 }
