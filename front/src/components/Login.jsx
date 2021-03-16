@@ -8,7 +8,6 @@ import {
   TextField,
   FormControlLabel,
   Checkbox,
-  Link,
   Paper,
   Grid,
   Box,
@@ -19,6 +18,7 @@ import {
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 import useStyles from "../utils/stylesLogin";
+import { Link } from "react-router-dom";
 
 /* function Copyright() {
   return (

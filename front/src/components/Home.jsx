@@ -24,6 +24,7 @@ export default function Home({ changeMode }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books);
+  const search = useSelector((state) => state.search);
 
   const [pageNumber, setPageNumber] = useState(0);
 
@@ -38,7 +39,9 @@ export default function Home({ changeMode }) {
     dispatch(setBooks());
   }, []);
 
-  const displayBooks = books
+  let options = search.length > 0 ? search : books;
+
+  const displayBooks = options
     .slice(pagesVisited, pagesVisited + booksPerPage)
     .map((card) => {
       return (

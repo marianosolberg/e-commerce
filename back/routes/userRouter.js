@@ -7,3 +7,6 @@ router.get("/", userController.find)
 router.put("/profile/:id", userController.put)
 
 module.exports = router
+
+
+//DEBERIAMOS BORRAR ESTE ROUTER
