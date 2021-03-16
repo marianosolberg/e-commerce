@@ -24,6 +24,13 @@ import Brightness4Icon from "@material-ui/icons/Brightness4";
 import useStyles from "../utils/stylesNavbar";
 import MenuCategorias from "../components/MenuCategorias";
 
+<<<<<<< HEAD
+import Search from './Search' // importo el nuevo modulo.
+import { Route } from 'react-router-dom'// importo Route para renderizar el modulo.
+
+import MenuCategorias from "./MenuCategorias";
+=======
+>>>>>>> 306805f8d48c8b7d5bb5a2568275031e8f05ba78
 import AdminMenu from "./AdminMenu";
 
 export default function Navbar({ changeMode }) {
@@ -170,8 +177,9 @@ export default function Navbar({ changeMode }) {
             </IconButton>
           </Typography>
 
+
           <div className={classes.search}>
-            <div className={classes.searchIcon}>
+            {/* <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
             <InputBase
@@ -182,9 +190,16 @@ export default function Navbar({ changeMode }) {
               }}
               inputProps={{ "aria-label": "search" }}
               name="titulo"
-            />
+            /> */}
+            <Route render={({ history })=> <Search history={history} />} /> 
           </div>
+<<<<<<< HEAD
+
+
+          <MenuCategorias />
+=======
           <MenuCategorias categorias={categorias} />
+>>>>>>> 306805f8d48c8b7d5bb5a2568275031e8f05ba78
           <div className={classes.grow} />
           { isAdmin == "true" ? <AdminMenu /> : null}
           
