@@ -32,7 +32,6 @@ export default function Home({ changeMode }) {
   const pagesVisited = pageNumber * booksPerPage;
 
   const handleClick = (id) => {
-    // dispatch(setBook(id));  604ac406ed088172721807d9
     return history.push(`/SingleCard/${id}`);
   };
 
@@ -67,14 +66,6 @@ export default function Home({ changeMode }) {
                 onClick={() => handleClick(card._id)}
               >
                 DETALLE
-              </Button>
-
-              <Button
-                size="small"
-                color="primary"
-                onClick={() => history.push("/shop")}
-              >
-                COMPRAR
               </Button>
 
               <Button
