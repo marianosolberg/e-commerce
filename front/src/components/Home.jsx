@@ -3,10 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setBooks } from "../state/books";
 import { useHistory } from "react-router-dom";
 import ReactPaginate from "react-paginate";
-
-import Navbar from "./Navbar";
 import useStyles from "../utils/stylesHome";
-
 import {
   Button,
   Typography,

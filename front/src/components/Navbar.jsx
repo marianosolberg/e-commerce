@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-
+import { setSearch } from "../state/search";
+import { useDispatch, useSelector } from "react-redux";
 import {
   AppBar,
   Toolbar,
@@ -14,8 +15,6 @@ import {
   Avatar,
 } from "@material-ui/core";
 
-import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
@@ -23,8 +22,10 @@ import Brightness4Icon from "@material-ui/icons/Brightness4";
 
 import useStyles from "../utils/stylesNavbar";
 import MenuCategorias from "../components/MenuCategorias";
+import { setCategorias } from "../state/categorias";
 
 import Search from "./Search"; // importo el nuevo modulo.
+
 import { Route, useLocation } from "react-router-dom"; // importo Route para renderizar el modulo.
 
 import AdminMenu from "./AdminMenu";
@@ -34,20 +35,17 @@ export default function Navbar({ changeMode }) {
   const nombreUsuario = localStorage.getItem("user");
   const isAdmin = localStorage.getItem("isAdmin");
 
-  console.log(isAdmin);
-
-  console.log(token);
-
-  console.log(nombreUsuario);
-
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const [categorias, setCategorias] = useState([]);
+
+  const categorias = useSelector((state) => state.categorias);
 
   const history = useHistory();
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const dispatch = useDispatch();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -127,7 +125,7 @@ export default function Navbar({ changeMode }) {
           color="inherit"
         >
           {nombreUsuario ? (
-            <Avatar alt="Remy Sharp" src="cata.jpeg" />
+            <Avatar alt="Remy Sharp" src="cata.jpg" />
           ) : (
             <AccountCircle />
           )}
@@ -141,10 +139,15 @@ export default function Navbar({ changeMode }) {
     axios
       .get("/api/categorias")
       .then((res) => res.data)
-      .then((data) => setCategorias(data));
+      .then((data) => dispatch(setCategorias(data)));
   }, []);
   const location = useLocation();
-  console.log("ALGO PARA QUE SEAS VISIBLE!", location);
+
+  const handleClick = () => {
+    dispatch(setSearch());
+    return history.push("/");
+  };
+
   return (
     <>
       {location.pathname === "/login" ||
@@ -171,25 +174,13 @@ export default function Navbar({ changeMode }) {
                   aria-label="go to home"
                   color="inherit"
                   style={{ padding: 20 }}
-                  onClick={() => history.push("/")}
+                  onClick={() => handleClick()}
                 >
                   e-Books
                 </IconButton>
               </Typography>
 
               <div className={classes.search}>
-                {/* <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Busqueda"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-              name="titulo"
-            /> */}
                 <Route render={({ history }) => <Search history={history} />} />
               </div>
               <MenuCategorias categorias={categorias} />

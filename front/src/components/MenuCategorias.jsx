@@ -5,8 +5,10 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-
+import {useHistory} from 'react-router-dom';
 import StarHalfIcon from "@material-ui/icons/StarHalf";
+import {useDispatch, useSelector} from 'react-redux';
+import {setSearchCategory} from '../state/search';
 
 const StyledMenu = withStyles({
   paper: {
@@ -50,6 +52,17 @@ export default function MenuCategorias({ categorias }) {
     setAnchorEl(null);
   };
 
+  const search = useSelector(store => store.search)
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+  
+  const searchCategory = (searchBook) => {
+    dispatch(setSearchCategory(searchBook))
+    setAnchorEl(null)
+    return history.push(`/search/category/${searchBook}`)
+  }
+
   return (
     <div>
       <Button
@@ -71,7 +84,7 @@ export default function MenuCategorias({ categorias }) {
         {categorias &&
           categorias.map((categoria, i) => {
             return (
-              <StyledMenuItem key={i}>
+              <StyledMenuItem key={i} onClick={() => searchCategory(categoria._id)}>
                 <ListItemIcon>
                   <StarHalfIcon fontSize="small" />
                 </ListItemIcon>

@@ -3,7 +3,7 @@ import Home from "./components/Home";
 import FormRegisterContainer from "./container/FormRegisterContainer";
 import Shop from "./components/Shop";
 import SingleCard from "./components/SingleCard";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, useLocation } from "react-router-dom";
 import FormLoginContainer from "./container/FormLoginContainer";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -16,6 +16,10 @@ import lightBlue from "@material-ui/core/colors/lightBlue";
 import blueGrey from "@material-ui/core/colors/blueGrey";
 import AdminUsersContainer from "./container/AdminUsersContainer";
 import AdminCategoriasContainer from "./container/AdminCategoriasContainer";
+import AdminBooksContainer from "./container/AdminBooksContainer";
+import BookEdit from "./components/BookEdit";
+import CategoriaEdit from "./components/CategoriaEdit";
+import CreateBook from "./components/CreateBook";
 
 function App() {
   const [modo, setModo] = useState("dark");
@@ -53,13 +57,11 @@ function App() {
             />
             <Route exact path="/login" component={FormLoginContainer} />
             <Route exact path="/register" component={FormRegisterContainer} />
-            <Route exact path="/shop" component={Shop} />
+            <Route exact path="/shop" render={() => <Shop />} />
             <Route
               exact
               path="/singlecard/:id"
-              render={({ match }) => (
-                <SingleCard changeMode={changeMode} id={match.params.id} />
-              )}
+              render={({ match }) => <SingleCard id={match.params.id} />}
             />
             <Route path="/search/:keyword" component={Home} />
             <Route exact path="/admin/users" component={AdminUsersContainer} />
@@ -67,6 +69,30 @@ function App() {
               exact
               path="/admin/categorias"
               component={AdminCategoriasContainer}
+            />
+            <Route path="/search/category/:keyword" component={Home} />
+
+            <Route exact path="/admin/users" component={AdminUsersContainer} />
+            <Route
+              exact
+              path="/admin/products"
+              component={AdminBooksContainer}
+            />
+
+            <Route
+              exact
+              path="/admin/product/edit/:id"
+              render={({ match }) => <BookEdit id={match.params.id} />}
+            />
+            <Route
+              exact
+              path="/admin/product/create/:id"
+              render={({ match }) => <CreateBook id={match.params.id} />}
+            />
+            <Route
+              exact
+              path="/admin/categoria/edit/:id"
+              render={({ match }) => <CategoriaEdit id={match.params.id} />}
             />
           </Switch>
         </BrowserRouter>

@@ -2,7 +2,10 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { setBook } from "../state/book";
-import { Grid, Paper, Typography, ButtonBase } from "@material-ui/core";
+
+import { useHistory } from "react-router-dom";
+import { setCarrito } from "../state/carrito";
+import { Grid, Paper, Typography, ButtonBase, Button } from "@material-ui/core";
 import useStyles from "../utils/stylesSIngleCard";
 
 export default function SingleCard({ id }) {
@@ -10,11 +13,21 @@ export default function SingleCard({ id }) {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  // const history = useHistory();
+
   const libro = useSelector((store) => store.book);
+  const carrito = useSelector((store) => store.carrito);
 
   useEffect(() => {
     dispatch(setBook(id));
-  }, []);
+    localStorage.setItem("book", JSON.stringify(carrito));
+  }, [carrito]);
+
+  const handleClick = (libro) => {
+    dispatch(setCarrito(libro));
+    // localStorage.setItem("book", JSON.stringify(carrito));
+    // return history.push(`/shop`);
+  };
 
   return (
     <div className={classes.root}>
@@ -43,11 +56,13 @@ export default function SingleCard({ id }) {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Link to="/shop" style={{ color: "#0B73D4" }}>
-                    <Typography variant="body2" style={{ cursor: "pointer" }}>
-                      Comprar
-                    </Typography>
-                  </Link>
+                  <Typography
+                    variant="body2"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleClick(libro)}
+                  >
+                    agregar a carrito
+                  </Typography>
                 </Grid>
               </Grid>
             </Grid>

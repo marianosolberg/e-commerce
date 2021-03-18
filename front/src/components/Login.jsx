@@ -86,7 +86,7 @@ export default function Login({ handleSubmit, handleChange }) {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link to="/" variant="body2" style={{ color: "inherit" }}>
+                <Link to="/" variant="body2" style={{ color: "#0B73D4" }}>
                   Ingresar sin loguearme
                 </Link>
               </Grid>
@@ -94,7 +94,7 @@ export default function Login({ handleSubmit, handleChange }) {
                 <Link
                   to="/register"
                   variant="body2"
-                  style={{ color: "inherit" }}
+                  style={{ color: "#0B73D4" }}
                 >
                   No tenes una cuenta, Registrate
                 </Link>

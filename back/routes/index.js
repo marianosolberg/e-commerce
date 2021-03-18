@@ -6,6 +6,8 @@ const loginRouter = require("./loginRouter");
 const categoriasRouter = require("./categoriasRouter");
 const shopRouter = require("./shopRouter");
 const userRouter = require("./userRouter");
+// const userRouter = require("./userRouter");
+const carritoRouter = require("./carritoRouter");
 
 const adminRouter = require("./adminRouter");
 

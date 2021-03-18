@@ -1,11 +1,8 @@
-import React, { useEffect } from "react";
-import { Grid, Link, Paper, ButtonBase } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import { Grid, Paper, ButtonBase, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
-import Typography from "@material-ui/core/Typography";
-import Navbar from "./Navbar";
-import { useSelector, useDispatch } from "react-redux";
-import { setBook } from "../state/book";
+import { Link } from "react-router-dom";
+/* import { setCarrito } from "../state/carrito"; */
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,48 +33,54 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Shop() {
-  const libro = useSelector((state) => state.book);
-  const dispatch = useDispatch();
+export default function Shop({ changeMode, id }) {
   const classes = useStyles();
+  const [carrito, setCarrito] = useState([]);
 
   useEffect(() => {
-    dispatch(setBook("6049144d5b62059f921a35b8"));
+    // dispatch(setBook(id));
+    setCarrito(JSON.parse(localStorage.getItem("book")));
   }, []);
 
   return (
     <div className="color">
       <div style={{ marginTop: "50px" }}>
         <Paper className={classes.paper}>
-          <Grid container>
-            <Grid container style={{ width: 500 }} justify="space-around">
-              <ButtonBase className={classes.image}>
-                <img className={classes.img} alt="complex" src={libro.imagen} />
-              </ButtonBase>
-            </Grid>
-            <Grid item xs={12} sm container>
-              <Grid item xs container direction="column" spacing={2}>
-                <Grid item xs>
-                  <Typography gutterBottom variant="h6">
-                    {libro.titulo}
-                  </Typography>
-                  <Typography gutterBottom variant="h6">
-                    $ {libro.precio}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    Autor:{libro.autor}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Link href="/shop">
-                    <Typography variant="body2" style={{ cursor: "pointer" }}>
-                      Comprar
+          {carrito.map((libro) => (
+            <Grid container key={libro._id}>
+              <Grid container style={{ width: 500 }} justify="space-around">
+                <ButtonBase className={classes.image}>
+                  <img
+                    className={classes.img}
+                    alt="complex"
+                    src={libro.imagen}
+                  />
+                </ButtonBase>
+              </Grid>
+              <Grid item xs={12} sm container>
+                <Grid item xs container direction="column" spacing={2}>
+                  <Grid item xs>
+                    <Typography gutterBottom variant="h6">
+                      {libro.titulo}
                     </Typography>
-                  </Link>
+                    <Typography gutterBottom variant="h6">
+                      $ {libro.precio}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      Autor:{libro.autor}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <Link to="/shop">
+                      <Typography variant="body2" style={{ cursor: "pointer" }}>
+                        Comprar
+                      </Typography>
+                    </Link>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
-          </Grid>
+          ))}
         </Paper>
       </div>
     </div>

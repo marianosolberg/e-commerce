@@ -54,11 +54,18 @@ export default function AdminMenu() {
   };
 
   const handleUsers = () => {
+    setAnchorEl(null);
     history.push("/admin/users");
   };
 
   const handleCategorias = () => {
+    setAnchorEl(null);
     history.push("/admin/categorias");
+  };
+
+  const handleBooks = () => {
+    setAnchorEl(null);
+    history.push("/admin/products");
   };
 
   return (
@@ -67,7 +74,7 @@ export default function AdminMenu() {
         aria-controls="customized-menu"
         aria-haspopup="true"
         variant="contained"
-        color="inherit"
+        color="main"
         onClick={handleClick}
       >
         Administador
@@ -85,17 +92,17 @@ export default function AdminMenu() {
           </ListItemIcon>
           <ListItemText primary="Administar Usuarios" />
         </StyledMenuItem>
-        <StyledMenuItem>
+        <StyledMenuItem onClick={handleBooks}>
           <ListItemIcon>
             <BookmarksIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText primary="Agregar/quitar productos" />
+          <ListItemText primary="Administar Libros" />
         </StyledMenuItem>
         <StyledMenuItem onClick={handleCategorias}>
           <ListItemIcon>
             <BookmarksIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText primary="Agregar/quitar categorías" />
+          <ListItemText primary="Administar Categorías" />
         </StyledMenuItem>
       </StyledMenu>
     </div>
