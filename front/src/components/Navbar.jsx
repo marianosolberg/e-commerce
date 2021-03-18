@@ -77,6 +77,7 @@ export default function Navbar({ changeMode }) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       localStorage.removeItem("isAdmin");
+      localStorage.removeItem("userId")
       history.push("/");
     }
   };
@@ -144,7 +145,7 @@ export default function Navbar({ changeMode }) {
       .then((data) => setCategorias(data));
   }, []);
   const location = useLocation()
-  console.log("ALGO PARA QUE SEAS VISIBLE!", location)
+  
   return (
     <>
     {(location.pathname === "/login" || location.pathname === "/register") ? null : (<div className={classes.grow}>

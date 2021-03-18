@@ -16,6 +16,7 @@ router.use("/login", loginRouter)
 router.use("/categorias", categoriasRouter)
 router.use("/shop", shopRouter)
 router.use("/admin", adminRouter)
+router.use("/carrito", carritoRouter)
 
 
 module.exports = router;

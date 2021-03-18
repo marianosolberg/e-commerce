@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect} from 'react'
 import AdminUsers from '../components/AdminUsers'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUsers } from '../state/users'

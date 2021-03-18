@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Link, Paper, ButtonBase } from "@material-ui/core";
+import { Grid, Paper, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
+import { Delete, LocalSee } from "@material-ui/icons";
 import Typography from "@material-ui/core/Typography";
-import Navbar from "./Navbar";
 import { useSelector, useDispatch } from "react-redux";
+import { setComprar } from "../state/comprar";
 import { setCarrito } from "../state/carrito";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(4),
     margin: "auto",
     maxWidth: 1000,
+    marginTop: "10px",
   },
   image: {
     width: 80,
@@ -34,59 +35,195 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "100%",
     maxHeight: "100%",
   },
+  h6: {
+    fontSize: "14px",
+  },
 }));
 
 export default function Shop({ changeMode, id }) {
-  const libro = useSelector((store) => store.book);
-  // const dispatch = useDispatch();
+  
+
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [carrito, setCarrito] = useState([]);
+  
+
+  const handleClick = () => {
+    let userId= localStorage.getItem("userId")
+    let carritoCompras = carrito.map((book) => {
+      return book._id;
+    });
+    console.log(carritoCompras)
+    dispatch(setComprar({userId, carritoCompras}));
+  };
 
   useEffect(() => {
     // dispatch(setBook(id));
     setCarrito(JSON.parse(localStorage.getItem("book")));
   }, []);
-  console.log(carrito);
+  console.log("carritttttoooooo", carrito);
+
   return (
     <div className="color">
       {/* <Navbar changeMode={changeMode} /> */}
       <div style={{ marginTop: "50px" }}>
         <Paper className={classes.paper}>
+          <Grid container>
+            <Grid container style={{ width: 500 }}>
+              <Grid className={classes.image}></Grid>
+              <Grid item xs></Grid>
+            </Grid>
+            <Grid item xs={12} sm container>
+              <Grid item xs container direction="column" spacing={2}>
+                <Grid item xs>
+                  <Typography className={classes.h6}>Precio</Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={12} sm container>
+              <Grid item xs container direction="column" spacing={2}>
+                <Grid item xs>
+                  <Typography className={classes.h6}>Unidades</Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={12} sm container>
+              <Grid item xs container direction="column" spacing={2}>
+                <Grid item xs>
+                  <Typography className={classes.h6}>Total</Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={12} sm container>
+              <Grid item xs container direction="column" spacing={2}>
+                <Grid item xs>
+                  <Typography className={classes.h6}>Eliminar</Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Paper>
+
+        {/*  vista de los productos del carrito */}
+
+        <Paper className={classes.paper}>
+          console.log(value)
           {carrito.map((libro) => (
-            <Grid container>
-              <Grid container style={{ width: 500 }} justify="space-around">
-                <ButtonBase className={classes.image}>
+            <Grid container key={libro._id}>
+              <Grid container style={{ width: 500 }}>
+                <Grid className={classes.image}>
                   <img
                     className={classes.img}
                     alt="complex"
                     src={libro.imagen}
                   />
-                </ButtonBase>
+                </Grid>
+                <Grid item xs>
+                  <Typography className={classes.h6}>{libro.titulo}</Typography>
+                  <Typography className={classes.h6}>{libro.autor}</Typography>
+                  <Typography className={classes.h6}>
+                    Disponible: {libro.stock} unidades
+                  </Typography>
+                </Grid>
               </Grid>
               <Grid item xs={12} sm container>
                 <Grid item xs container direction="column" spacing={2}>
                   <Grid item xs>
-                    <Typography gutterBottom variant="h6">
-                      {libro.titulo}
-                    </Typography>
-                    <Typography gutterBottom variant="h6">
+                    <Typography className={classes.h6}>
                       $ {libro.precio}
                     </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      Autor:{libro.autor}
-                    </Typography>
                   </Grid>
-                  <Grid item>
-                    <Link href="/shop">
-                      <Typography variant="body2" style={{ cursor: "pointer" }}>
-                        Comprar
+                </Grid>
+                <Grid item xs={12} sm container>
+                  <Grid item xs container direction="column" spacing={2}>
+                    <Grid item xs>
+                    <input
+                        type="number"
+                        name=""
+                        id=""
+                        min="1"
+                        max={libro.stock}
+                      />
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid item xs={12} sm container>
+                  <Grid item xs container direction="column" spacing={2}>
+                    <Grid item xs>
+                      <Typography className={classes.h6}>
+                        ${libro.stock * libro.precio}
                       </Typography>
-                    </Link>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid item xs={12} sm container>
+                  <Grid item xs container direction="column" spacing={2}>
+                    <Grid item xs>
+                      <IconButton
+                        edge="end"
+                        aria-label="delete"
+                        className={classes.h6}
+                      >
+                        <Delete />
+                      </IconButton>
+                    </Grid>
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
-          ))}
+          ))}{" "}
+          // localStorage.setItem("book", JSON.stringify(carrito)); // return
+          history.push(`/shop`);
+        </Paper>
+
+        {/*  vista del resultado final del carrito */}
+
+        <Paper className={classes.paper}>
+          <Grid container>
+            <Grid container style={{ width: 500 }}>
+              <Grid className={classes.image}></Grid>
+              <Grid item xs></Grid>
+            </Grid>
+            <Grid item xs={12} sm container>
+              <Grid item xs container direction="column" spacing={2}>
+                <Grid item xs></Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={12} sm container>
+              <Grid item xs container direction="column" spacing={2}>
+                <Grid item xs>
+                  <Typography
+                    variant="body2"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleClick()}
+                  >
+                    Comprar
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={12} sm container>
+              <Grid item xs container direction="column" spacing={2}>
+                <Grid item xs>
+                  <Typography className={classes.h6}>Total</Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={12} sm container>
+              <Grid item xs container direction="column" spacing={8}>
+                <Grid item xs>
+                  <IconButton
+                    edge="end"
+                    aria-label="delete"
+                    className={classes.h6}
+                  >
+                    <Delete />
+                    Vaciar Carrito
+                  </IconButton>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
         </Paper>
       </div>
     </div>

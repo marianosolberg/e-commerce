@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { setBooks } from "../state/books";
 import { useHistory } from "react-router-dom";
 import ReactPaginate from "react-paginate";
+import {setCarritoLogin} from "../state/comprar"
 
-import Navbar from "./Navbar";
+
+
 import useStyles from "../utils/stylesHome";
 
 import {
@@ -36,6 +38,10 @@ export default function Home({ changeMode }) {
   };
 
   useEffect(() => {
+    const userId = localStorage.getItem("userId")
+   if (userId !== null){
+    dispatch(setCarritoLogin(userId))
+   }
     dispatch(setBooks());
   }, []);
 

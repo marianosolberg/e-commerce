@@ -3,7 +3,7 @@ import Home from "./components/Home";
 import FormRegisterContainer from "./container/FormRegisterContainer";
 import Shop from "./components/Shop";
 import SingleCard from "./components/SingleCard";
-import { BrowserRouter, Route, Switch, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Switch} from "react-router-dom";
 import FormLoginContainer from "./container/FormLoginContainer";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";

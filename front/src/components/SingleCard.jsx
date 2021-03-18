@@ -1,16 +1,13 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Navbar from "./Navbar";
 import { setBook } from "../state/book";
-import { useHistory } from "react-router-dom";
 import { setCarrito } from "../state/carrito";
 import {
   Grid,
   Paper,
   Typography,
   ButtonBase,
-  Link,
-  Button,
+ 
 } from "@material-ui/core";
 import useStyles from "../utils/stylesSIngleCard";
 
