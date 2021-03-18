@@ -28,7 +28,7 @@ export default function Register({ handleChange, handleSubmit }) {
         <Typography component="h1" variant="h5">
           Registrate para ingresar
         </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+        <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField

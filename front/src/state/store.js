@@ -7,6 +7,8 @@ import { userReducer } from "./user";
 import { carritoReducer } from "./carrito";
 import { comprarReducer } from "./comprar";
 import { searchReducer } from "./search";
+import { usersReducer } from "./users";
+import { categoriasReducer } from "./categorias";
 
 const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
@@ -14,9 +16,12 @@ const store = configureStore({
     user: userReducer,
     books: booksReducer,
     book: bookReducer,
+    search: searchReducer,
+    users: usersReducer,
+    categorias: categoriasReducer,
     carrito: carritoReducer,
     comprar: comprarReducer,
-    search: searchReducer
+    search: searchReducer,
   },
 });
 

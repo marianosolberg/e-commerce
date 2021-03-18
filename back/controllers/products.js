@@ -15,38 +15,25 @@ const ProductController = {
       .catch((e) => res.send(e));
   },
   findAll(req, res) {
-    if(req.query.categoria){
-      Product.find({ categoria: req.query.categoria}).populate("categoria")
-      .then((product) => res.send(product))
-      .catch((e) => res.send(e));  
-    }else{
+    if (req.query.categoria) {
+      Product.find({ categoria: req.query.categoria })
+        .populate("categoria")
+        .then((product) => res.send(product))
+        .catch((e) => res.send(e));
+    } else {
       Product.find()
         .populate("categoria")
         .then((products) => res.send(products))
         .catch((e) => res.send(e));
     }
   },
-  create(req, res) {
-    Product.create(req.body)
-      .then((product) => {
-        console.log("PRODUCTO CREADO");
-        return res.send(product);
-      })
-      .catch((e) => {
-        console.log("producto no creado");
-        res.send(e);
-      });
-  },
-  update(req, res) {
-    Product.findByIdAndUpdate({ _id: req.params.id }, req.body)
-      .populate("categoria")
-      .then((product) => res.send(product))
-      .catch((e) => res.send(e));
-  },
-  delete(req, res) {
-    console.log("delet");
-    res.sendStatus(200);
-  },
+  // update(req, res) {
+  //   console.log(req.body)
+  //   Product.findByIdAndUpdate({ _id: req.params.id }, req.body)
+  //     .populate("categoria")
+  //     .then((product) => res.send(product))
+  //     .catch((e) => res.send(e));
+  // },
 };
 
 module.exports = ProductController;

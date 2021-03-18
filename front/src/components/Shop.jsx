@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Link, Paper, ButtonBase } from "@material-ui/core";
+import { Grid, Paper, ButtonBase, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
-import Typography from "@material-ui/core/Typography";
-import Navbar from "./Navbar";
-import { useSelector, useDispatch } from "react-redux";
-import { setCarrito } from "../state/carrito";
+import { Link } from "react-router-dom";
+/* import { setCarrito } from "../state/carrito"; */
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,8 +34,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Shop({ changeMode, id }) {
-  const libro = useSelector((store) => store.book);
-  // const dispatch = useDispatch();
   const classes = useStyles();
   const [carrito, setCarrito] = useState([]);
 
@@ -49,7 +44,6 @@ export default function Shop({ changeMode, id }) {
 
   return (
     <div className="color">
-      {/* <Navbar changeMode={changeMode} /> */}
       <div style={{ marginTop: "50px" }}>
         <Paper className={classes.paper}>
           {carrito.map((libro) => (
@@ -77,7 +71,7 @@ export default function Shop({ changeMode, id }) {
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Link href="/shop">
+                    <Link to="/shop">
                       <Typography variant="body2" style={{ cursor: "pointer" }}>
                         Comprar
                       </Typography>

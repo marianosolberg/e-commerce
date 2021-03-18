@@ -3,10 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setBooks } from "../state/books";
 import { useHistory } from "react-router-dom";
 import ReactPaginate from "react-paginate";
-
-import Navbar from "./Navbar";
 import useStyles from "../utils/stylesHome";
-
 import {
   Button,
   Typography,
@@ -18,7 +15,7 @@ import {
   Grid,
 } from "@material-ui/core";
 
-export default function Home({ changeMode }) {
+export default function Home() {
   const classes = useStyles();
 
   const history = useHistory();
@@ -39,7 +36,7 @@ export default function Home({ changeMode }) {
     dispatch(setBooks());
   }, []);
 
-  let options = (search.length > 0) ? search : books;
+  let options = search.length > 0 ? search : books;
 
   const displayBooks = options
     .slice(pagesVisited, pagesVisited + booksPerPage)
@@ -88,7 +85,6 @@ export default function Home({ changeMode }) {
 
   return (
     <React.Fragment>
-      {/* <Navbar changeMode={changeMode} /> */}
       <main className="color">
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
