@@ -4,8 +4,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Delete, LocalSee } from "@material-ui/icons";
 import Typography from "@material-ui/core/Typography";
 import { useSelector, useDispatch } from "react-redux";
-import { setComprar } from "../state/comprar";
+import { setCarritoLogin } from "../state/comprar";
 import { setCarrito } from "../state/carrito";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,31 +42,45 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Shop({ changeMode, id }) {
+  const carrito = useSelector((store) => store.carrito);
   
-
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [carrito, setCarrito] = useState([]);
-  
+  const [libros, setLibros] = useState([]);
 
   const handleClick = () => {
-    let userId= localStorage.getItem("userId")
-    let carritoCompras = carrito.map((book) => {
+    let userId = localStorage.getItem("userId");
+    let productos = carrito.map((book) => {
       return book._id;
     });
-    console.log(carritoCompras)
-    dispatch(setComprar({userId, carritoCompras}));
+   
+    dispatch(setCarritoLogin({ userId, productos }));
   };
 
   useEffect(() => {
-    // dispatch(setBook(id));
-    setCarrito(JSON.parse(localStorage.getItem("book")));
-  }, []);
-  console.log("carritttttoooooo", carrito);
+    let userId = localStorage.getItem("userId");
+    let carritoCompras = JSON.parse(localStorage.getItem("book"));
+    if (userId) {
+      console.log("estoy en el primer if")
+      axios.get(`/api/carrito/${userId}`).then((res) => {
+        const libros = res.data.productos.map((e)=> e.producto)
+        dispatch(setCarrito(libros));
+      });
+    }
+    if (!userId && carritoCompras) {
+      console.log("estoy en el segundo")
+      dispatch(setCarrito(carritoCompras));
+    }
 
+    setLibros(carrito);
+  }, []);
+
+  /*  useEffect(() => {
+    dispatch(setCarrito(libros));
+  }, []); */
+  console.log(carrito);
   return (
     <div className="color">
-      {/* <Navbar changeMode={changeMode} /> */}
       <div style={{ marginTop: "50px" }}>
         <Paper className={classes.paper}>
           <Grid container>
@@ -107,73 +122,95 @@ export default function Shop({ changeMode, id }) {
         {/*  vista de los productos del carrito */}
 
         <Paper className={classes.paper}>
-          console.log(value)
-          {carrito.map((libro) => (
-            <Grid container key={libro._id}>
-              <Grid container style={{ width: 500 }}>
-                <Grid className={classes.image}>
-                  <img
-                    className={classes.img}
-                    alt="complex"
-                    src={libro.imagen}
-                  />
-                </Grid>
-                <Grid item xs>
-                  <Typography className={classes.h6}>{libro.titulo}</Typography>
-                  <Typography className={classes.h6}>{libro.autor}</Typography>
-                  <Typography className={classes.h6}>
-                    Disponible: {libro.stock} unidades
-                  </Typography>
-                </Grid>
-              </Grid>
-              <Grid item xs={12} sm container>
-                <Grid item xs container direction="column" spacing={2}>
-                  <Grid item xs>
-                    <Typography className={classes.h6}>
-                      $ {libro.precio}
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid item xs={12} sm container>
-                  <Grid item xs container direction="column" spacing={2}>
-                    <Grid item xs>
-                    <input
-                        type="number"
-                        name=""
-                        id=""
-                        min="1"
-                        max={libro.stock}
-                      />
+          {carrito && carrito.map((libro) => {
+                  return (
+                    <Grid container key={libro._id}>
+                      <Grid container style={{ width: 500 }}>
+                        <Grid className={classes.image}>
+                          <img
+                            className={classes.img}
+                            alt="complex"
+                            src={libro.imagen}
+                          />
+                        </Grid>
+                        <Grid item xs>
+                          <Typography className={classes.h6}>
+                            {libro.titulo}
+                          </Typography>
+                          <Typography className={classes.h6}>
+                            {libro.autor}
+                          </Typography>
+                          <Typography className={classes.h6}>
+                            Disponible: {libro.stock} unidades
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                      <Grid item xs={12} sm container>
+                        <Grid item xs container direction="column" spacing={2}>
+                          <Grid item xs>
+                            <Typography className={classes.h6}>
+                              $ {libro.precio}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                        <Grid item xs={12} sm container>
+                          <Grid
+                            item
+                            xs
+                            container
+                            direction="column"
+                            spacing={2}
+                          >
+                            <Grid item xs>
+                              <input
+                                type="number"
+                                name=""
+                                id=""
+                                min="1"
+                                max={libro.stock}
+                              />
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                        <Grid item xs={12} sm container>
+                          <Grid
+                            item
+                            xs
+                            container
+                            direction="column"
+                            spacing={2}
+                          >
+                            <Grid item xs>
+                              <Typography className={classes.h6}>
+                                ${libro.stock * libro.precio}
+                              </Typography>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                        <Grid item xs={12} sm container>
+                          <Grid
+                            item
+                            xs
+                            container
+                            direction="column"
+                            spacing={2}
+                          >
+                            <Grid item xs>
+                              <IconButton
+                                edge="end"
+                                aria-label="delete"
+                                className={classes.h6}
+                              >
+                                <Delete />
+                              </IconButton>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item xs={12} sm container>
-                  <Grid item xs container direction="column" spacing={2}>
-                    <Grid item xs>
-                      <Typography className={classes.h6}>
-                        ${libro.stock * libro.precio}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item xs={12} sm container>
-                  <Grid item xs container direction="column" spacing={2}>
-                    <Grid item xs>
-                      <IconButton
-                        edge="end"
-                        aria-label="delete"
-                        className={classes.h6}
-                      >
-                        <Delete />
-                      </IconButton>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-          ))}{" "}
-          // localStorage.setItem("book", JSON.stringify(carrito)); // return
-          history.push(`/shop`);
+                  );
+                }
+              )}
         </Paper>
 
         {/*  vista del resultado final del carrito */}

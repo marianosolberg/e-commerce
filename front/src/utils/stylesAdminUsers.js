@@ -1,9 +1,19 @@
 import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles((theme) => ({
+  typography: {
+    subtitle: {
+      fontSize: 12,
+    },
+  },
   root: {
+    display: "flex",
+    "& > * + *": {
+      marginLeft: theme.spacing(2),
+    },
+
     flexGrow: 1,
-    maxWidth: 752,
+    maxWidth: 800,
   },
   demo: {
     backgroundColor: theme.palette.background.paper,

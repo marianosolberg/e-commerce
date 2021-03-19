@@ -2,16 +2,37 @@ const Carrito = require("../models/Carrito");
 
 const carritoController = {
   create(req, res) {
-    console.log(req.body);
+    const { userId } = req.params;
+    const { productos } = req.body;
+    console.log("!!!!!!!!!!!", req.body);
+    console.log("productos", productos);
+    console.log("userId", userId);
+   
+    Carrito.findOne(
+      { user: userId }
+      /* {$addToSet:{productos: {producto:productos} }} */
+    ).then((carrito) => {
+      console.log(carrito);
+      if (carrito){
+        carrito.productos = [...carrito.productos, ...productos]
+        carrito.save()
+        .then ((carrito)=> carrito.populate({path:"productos", populate:{path:"producto"}}).execPopulate())
+        .then ((carrito)=> res.send(carrito))
+       
+      } else{
+        Carrito.create({
+          productos: productos ? productos : [],
+          user: userId,
+        }).then((carrito) => {
+          res.send(carrito);
+        });
+      }
+        
+     
+    });
 
-    console.log("librooooooooooooo", req.body.carritoCompras);
-    if (req.body.userId) {
-      Carrito.findOneAndUpdate(
-        { user: req.body.userId },
-        {$addToSet:{ producto: req.body.carritoCompras }}
-      )
-      .then((carrito) => res.send(carrito));
-    } else {
+    /* else {
+      console.log("devolviendo carrito")
       if (typeof req.body.carrito == "string") {
         Carrito.find({ user: req.body.carrito })
           .then((carrito) => {
@@ -22,11 +43,11 @@ const carritoController = {
                 }
               );
             }
-            res.send(carrito);
+            res.send(carrito[0].producto);
           })
           .catch((e) => console.log(e));
       }
-    }
+    } */
 
     /* if (Array.isArray(req.body.carrito)) {
      
@@ -42,6 +63,12 @@ const carritoController = {
     Carrito.find()
       .populate("producto")
       .populate("user")
+      .then((carrito) => res.send(carrito));
+  },
+
+  findOne(req, res) {
+    Carrito.findOne({ user: req.params.userId })
+      .populate({path:"productos", populate:{path:"producto"}})
       .then((carrito) => res.send(carrito));
   },
 };

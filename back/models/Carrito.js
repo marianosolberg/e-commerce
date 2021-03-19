@@ -3,13 +3,21 @@ const mongoose = require("mongoose");
 const schema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
+
     ref: "User",
   },
-  producto: [
+  productos: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Product",
+      producto: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+      },
+      cantidad: {
+        type: Number,
+        default: 1,
+      },
     },
+  
   ],
 });
 

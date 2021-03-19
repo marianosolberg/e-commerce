@@ -90,6 +90,15 @@ export default function Login({ handleSubmit, handleChange }) {
                   Ingresar sin loguearme
                 </Link>
               </Grid>
+              <Grid item>
+                <Link
+                  to="/register"
+                  variant="body2"
+                  style={{ color: "#0B73D4" }}
+                >
+                  No tenes una cuenta, Registrate
+                </Link>
+              </Grid>
              
             </Grid>
             <Box mt={5}>{/*  <Copyright /> */}</Box>

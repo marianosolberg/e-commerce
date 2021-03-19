@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setBook } from "../state/book";
 import { setCarrito } from "../state/carrito";
+import {setCarritoLogin, setComprar} from "../state/comprar";
+
 import {
   Grid,
   Paper,
@@ -9,9 +11,10 @@ import {
   ButtonBase,
  
 } from "@material-ui/core";
+
 import useStyles from "../utils/stylesSIngleCard";
 
-export default function SingleCard({ changeMode, id }) {
+export default function SingleCard({ id }) {
   console.log(id);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -28,13 +31,15 @@ export default function SingleCard({ changeMode, id }) {
 
   const handleClick = (libro) => {
     dispatch(setCarrito(libro));
-    // localStorage.setItem("book", JSON.stringify(carrito));
-    // return history.push(`/shop`);
-  };
+    let carritoCompras = libro
+     let userId= localStorage.getItem("userId")
+      dispatch(setCarritoLogin({userId, carritoCompras}));
+    };
+    
+
 
   return (
     <div className={classes.root}>
-      {/* <Navbar changeMode={changeMode} /> */}
       <div style={{ marginTop: "50px" }}>
         <Paper className={classes.paper}>
           <Typography gutterBottom variant="h3" align="center">

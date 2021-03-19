@@ -3,17 +3,13 @@ import AdminUsers from '../components/AdminUsers'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUsers } from '../state/users'
 
+export default function AdminUsersContainer() {
+  const users = useSelector((state) => state.users);
+  const dispatch = useDispatch();
 
-export default function AdminUsersContainer({ changeMode}) {
-    const users = useSelector(state => state.users) 
-    const dispatch = useDispatch()
-    
-    useEffect(() => {
-        dispatch(setUsers())
-    }, [])
+  useEffect(() => {
+    dispatch(setUsers());
+  }, []);
 
-
-    return (
-        <AdminUsers users={users}/>
-    )
+  return <AdminUsers users={users} />;
 }
