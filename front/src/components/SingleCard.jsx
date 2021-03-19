@@ -1,11 +1,17 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { setBook } from "../state/book";
-
-import { useHistory } from "react-router-dom";
 import { setCarrito } from "../state/carrito";
-import { Grid, Paper, Typography, ButtonBase, Button } from "@material-ui/core";
+import {setCarritoLogin, setComprar} from "../state/comprar";
+
+import {
+  Grid,
+  Paper,
+  Typography,
+  ButtonBase,
+ 
+} from "@material-ui/core";
+
 import useStyles from "../utils/stylesSIngleCard";
 
 export default function SingleCard({ id }) {
@@ -25,9 +31,12 @@ export default function SingleCard({ id }) {
 
   const handleClick = (libro) => {
     dispatch(setCarrito(libro));
-    // localStorage.setItem("book", JSON.stringify(carrito));
-    // return history.push(`/shop`);
-  };
+    let carritoCompras = libro
+     let userId= localStorage.getItem("userId")
+      dispatch(setCarritoLogin({userId, carritoCompras}));
+    };
+    
+
 
   return (
     <div className={classes.root}>

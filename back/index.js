@@ -11,9 +11,10 @@ app.use(cors())
 app.use(morgan("dev"));
 
 app.use(express.json());
+app.use(express.urlencoded({extended:true}))
 
 
-// Middleware de rutas
+// Middleware de rutas//
 app.use("/api", routes);
 
 app.listen(5000, () => console.log("listenning on port 5000"));

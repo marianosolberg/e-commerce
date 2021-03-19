@@ -51,7 +51,8 @@ export default function CreateBook({ id }) {
         autor,
         editorial,
         precio,
-        imagen
+        imagen, 
+       
       })
       .then(() => {
         alert("Libro Creado");

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import AdminUsers from "../components/AdminUsers";
-import { useDispatch, useSelector } from "react-redux";
-import { setUsers } from "../state/users";
+import React, { useEffect} from 'react'
+import AdminUsers from '../components/AdminUsers'
+import { useDispatch, useSelector } from 'react-redux'
+import { setUsers } from '../state/users'
 
 export default function AdminUsersContainer() {
   const users = useSelector((state) => state.users);

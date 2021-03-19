@@ -49,3 +49,4 @@ User.prototype.validPassword = async function (passwordEnLogin) {
 } 
 
 module.exports = User;
+

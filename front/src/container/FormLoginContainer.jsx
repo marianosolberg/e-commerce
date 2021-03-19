@@ -25,8 +25,10 @@ const FormLoginContainer = () => {
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user", res.data.user.nombre);
+        localStorage.setItem("userId", res.data.user._id)
         localStorage.setItem("isAdmin", res.data.user.isAdmin);
         dispatch(setUser(res.data));
+        
         return history.push("/");
       })
       .catch(() => alert("datos incorrectos, intente de nuevo"));

@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setBooks } from "../state/books";
 import { useHistory } from "react-router-dom";
 import ReactPaginate from "react-paginate";
+import { setCarritoLogin } from "../state/comprar";
+
 import useStyles from "../utils/stylesHome";
 import {
   Button,
@@ -33,6 +35,19 @@ export default function Home() {
   };
 
   useEffect(() => {
+    
+    const userId = localStorage.getItem("userId");
+    let productosls = JSON.parse(localStorage.getItem("book")) ? JSON.parse(localStorage.getItem("book")) : [];
+
+    if (userId) {
+
+      const productos = productosls.map((libro) => ({
+        producto: libro._id,
+        cantidad: 1,
+      }));
+
+      dispatch(setCarritoLogin({userId, productos}));
+    }
     dispatch(setBooks());
   }, []);
 
@@ -63,14 +78,6 @@ export default function Home() {
                 onClick={() => handleClick(card._id)}
               >
                 DETALLE
-              </Button>
-
-              <Button
-                size="small"
-                color="primary"
-                onClick={() => history.push("/shop")}
-              >
-                Agregar al carrito
               </Button>
             </CardActions>
           </Card>

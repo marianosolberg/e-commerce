@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { setSearch } from "../state/search";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -23,7 +23,8 @@ import Brightness4Icon from "@material-ui/icons/Brightness4";
 import useStyles from "../utils/stylesNavbar";
 import MenuCategorias from "../components/MenuCategorias";
 import { setCategorias } from "../state/categorias";
-
+import { setCarrito } from "../state/carrito";
+import{ setCarritoLogin} from "../state/comprar"
 import Search from "./Search"; // importo el nuevo modulo.
 
 import { Route, useLocation } from "react-router-dom"; // importo Route para renderizar el modulo.
@@ -75,6 +76,8 @@ export default function Navbar({ changeMode }) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       localStorage.removeItem("isAdmin");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("book");
       history.push("/");
     }
   };
@@ -148,6 +151,25 @@ export default function Navbar({ changeMode }) {
     return history.push("/");
   };
 
+  /* const carritoCompra = () => {
+    let userId = localStorage.getItem("userId");
+    let carritoCompras = JSON.parse(localStorage.getItem("book"))
+    if (userId) {
+      if(carritoCompras){
+        dispatch(setCarritoLogin(userId, carritoCompras))
+      }
+      return axios.post("/api/carrito", { userId }).then((res) => {
+        dispatch(setCarrito(res.data.producto));
+        history.push("/shop");
+      });
+    }
+    if (!userId) {
+      alert("me estoy ejecutando necesitas loguearte")
+      dispatch(setCarrito(JSON.parse(localStorage.getItem("book"))));
+      history.push("/shop");
+    }
+  }; */
+
   return (
     <>
       {location.pathname === "/login" ||
@@ -206,16 +228,17 @@ export default function Navbar({ changeMode }) {
                   <Badge badgeContent={0} color="secondary"></Badge>
                   <Brightness4Icon />
                 </IconButton>
+                <Link to= "/shop">
                 <IconButton
                   aria-label="show  new notifications"
                   color="inherit"
                   style={{ padding: 20 }}
-                  onClick={() => history.push("/shop")}
+                
                 >
                   <Badge badgeContent={0} color="secondary"></Badge>
                   <ShoppingCartIcon />
                 </IconButton>
-
+                </Link>
                 <IconButton
                   edge="end"
                   aria-label="account of current user"

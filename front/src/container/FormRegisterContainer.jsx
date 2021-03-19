@@ -26,14 +26,15 @@ const RegisterContainer = () => {
       .then((user) => {
         console.log(user.data);
         if (user.data.errors) {
-          alert("todos los campos son requeridos");
+          alert(user.data.errors.email.message);
         } else {
           alert("creacion exitosa");
           return history.push("/login");
         }
       })
 
-      .catch((e) => console.log(e));
+      .catch((e) => alert(e));
+     
   };
 
   return <Register handleChange={handleChange} handleSubmit={handleSubmit} />;
